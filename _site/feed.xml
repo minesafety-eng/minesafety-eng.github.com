@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://minesafety-eng.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://minesafety-eng.github.io//" rel="alternate" type="text/html" /><updated>2021-02-06T23:28:09+09:00</updated><id>https://minesafety-eng.github.io//feed.xml</id><title type="html">광산보안기사/기능사 길라잡이</title><subtitle>광산보안기사/기능사 문제를 통한 광산안전의 기본이론을 공유하는 블로그</subtitle><author><name>신명진</name><email>smj0226@kores.or.kr</email></author><entry><title type="html">테스트글1</title><link href="https://minesafety-eng.github.io//test1/" rel="alternate" type="text/html" title="테스트글1" /><published>2021-02-06T00:00:00+09:00</published><updated>2021-02-06T00:00:00+09:00</updated><id>https://minesafety-eng.github.io//test1</id><content type="html" xml:base="https://minesafety-eng.github.io//test1/">&lt;h1 id=&quot;테스트글-1을-작성해본다&quot;&gt;테스트글 1을 작성해본다.&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://minesafety-eng.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://minesafety-eng.github.io//" rel="alternate" type="text/html" /><updated>2021-02-06T23:36:31+09:00</updated><id>https://minesafety-eng.github.io//feed.xml</id><title type="html">광산보안기사/기능사 길라잡이</title><subtitle>광산보안기사/기능사 문제를 통한 광산안전의 기본이론을 공유하는 블로그</subtitle><author><name>신명진</name><email>smj0226@kores.or.kr</email></author><entry><title type="html">테스트글1</title><link href="https://minesafety-eng.github.io//test1/" rel="alternate" type="text/html" title="테스트글1" /><published>2021-02-06T00:00:00+09:00</published><updated>2021-02-06T00:00:00+09:00</updated><id>https://minesafety-eng.github.io//test1</id><content type="html" xml:base="https://minesafety-eng.github.io//test1/">&lt;h1 id=&quot;테스트글-1을-작성해본다&quot;&gt;테스트글 1을 작성해본다.&lt;/h1&gt;
 
 &lt;h2 id=&quot;헤딩2&quot;&gt;헤딩2&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;p&gt;글을 작성하는 것도 내게 쉽지 않다. 세상 쉬운 것이 하나 없다지만, 내 속을 드러내는 일은 더더욱 힘들다. 그렇지만, 지금부터 작성할 글은 나에 대한 이야기가 아니다. 교재와 공식을 토대로 풀이를 작성하는 일이기 때문에부담을 버리고 하나씩 시도해보고자 한다. 세상을 향해 한 걸음 내딛는 계기가 되길.&lt;/p&gt;
 
@@ -18,8 +16,6 @@
 
 &lt;h2 id=&quot;헤딩2-1&quot;&gt;헤딩2&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;글을 작성하는 것도 내게 쉽지 않다. 세상 쉬운 것이 하나 없다지만, 내 속을 드러내는 일은 더더욱 힘들다. 그렇지만, 지금부터 작성할 글은 나에 대한 이야기가 아니다. 교재와 공식을 토대로 풀이를 작성하는 일이기 때문에부담을 버리고 하나씩 시도해보고자 한다. 세상을 향해 한 걸음 내딛는 계기가 되길.&lt;/p&gt;
 
 &lt;h3 id=&quot;헤딩3-2&quot;&gt;헤딩3&lt;/h3&gt;
@@ -33,8 +29,6 @@
 &lt;h1 id=&quot;테스트글-1을-작성해본다-2&quot;&gt;테스트글 1을 작성해본다.&lt;/h1&gt;
 
 &lt;h2 id=&quot;헤딩2-2&quot;&gt;헤딩2&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;p&gt;글을 작성하는 것도 내게 쉽지 않다. 세상 쉬운 것이 하나 없다지만, 내 속을 드러내는 일은 더더욱 힘들다. 그렇지만, 지금부터 작성할 글은 나에 대한 이야기가 아니다. 교재와 공식을 토대로 풀이를 작성하는 일이기 때문에부담을 버리고 하나씩 시도해보고자 한다. 세상을 향해 한 걸음 내딛는 계기가 되길.&lt;/p&gt;
 
@@ -50,8 +44,6 @@
 
 &lt;h2 id=&quot;헤딩2-3&quot;&gt;헤딩2&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;글을 작성하는 것도 내게 쉽지 않다. 세상 쉬운 것이 하나 없다지만, 내 속을 드러내는 일은 더더욱 힘들다. 그렇지만, 지금부터 작성할 글은 나에 대한 이야기가 아니다. 교재와 공식을 토대로 풀이를 작성하는 일이기 때문에부담을 버리고 하나씩 시도해보고자 한다. 세상을 향해 한 걸음 내딛는 계기가 되길.&lt;/p&gt;
 
 &lt;h3 id=&quot;헤딩3-6&quot;&gt;헤딩3&lt;/h3&gt;
@@ -66,8 +58,6 @@
 
 &lt;h2 id=&quot;헤딩2-4&quot;&gt;헤딩2&lt;/h2&gt;
 
-&lt;hr /&gt;
-
 &lt;p&gt;글을 작성하는 것도 내게 쉽지 않다. 세상 쉬운 것이 하나 없다지만, 내 속을 드러내는 일은 더더욱 힘들다. 그렇지만, 지금부터 작성할 글은 나에 대한 이야기가 아니다. 교재와 공식을 토대로 풀이를 작성하는 일이기 때문에부담을 버리고 하나씩 시도해보고자 한다. 세상을 향해 한 걸음 내딛는 계기가 되길.&lt;/p&gt;
 
 &lt;h3 id=&quot;헤딩3-8&quot;&gt;헤딩3&lt;/h3&gt;
@@ -81,8 +71,6 @@
 &lt;h1 id=&quot;테스트글-1을-작성해본다-5&quot;&gt;테스트글 1을 작성해본다.&lt;/h1&gt;
 
 &lt;h2 id=&quot;헤딩2-5&quot;&gt;헤딩2&lt;/h2&gt;
-
-&lt;hr /&gt;
 
 &lt;p&gt;글을 작성하는 것도 내게 쉽지 않다. 세상 쉬운 것이 하나 없다지만, 내 속을 드러내는 일은 더더욱 힘들다. 그렇지만, 지금부터 작성할 글은 나에 대한 이야기가 아니다. 교재와 공식을 토대로 풀이를 작성하는 일이기 때문에부담을 버리고 하나씩 시도해보고자 한다. 세상을 향해 한 걸음 내딛는 계기가 되길.&lt;/p&gt;
 
