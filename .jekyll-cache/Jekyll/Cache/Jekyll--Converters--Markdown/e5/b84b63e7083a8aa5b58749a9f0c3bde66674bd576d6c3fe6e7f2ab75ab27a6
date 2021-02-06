@@ -1,0 +1,16 @@
+I"S<h1 id="step-4--비선형구조">Step 4 : 비선형구조</h1>
+<h2 id="트리tree">트리(Tree)</h2>
+<p><img src="https://honbabzone.com/assets/images/post/java/data-tree.png" alt="java 쓰레드 상태" class="align-center open-new" />
+트리란 위에도 가볍게 언급한, 하나의 루트 노드와 0개 이상의 자식노드로 이루어진 자료구조입니다. 주로 계층적 관계( Hierarchical Relationship )를 표현하는 자료구조입니다.  트리관련 용어를 살펴보겠습니다.</p>
+<ul>
+  <li>Node (노드): A,B,C와 같은 요소입니다.</li>
+  <li>Root Node (루트노드): 최상위 노드 즉 A노드입니다.</li>
+  <li>Edge (간선) : 노드와 노드를 연결한 선입니다.</li>
+  <li>Terminal node, Leaf Node (단말노드) : 자식 노드가 없는 E, F, C, D와 같은 노드입니다.</li>
+  <li>Internal Node(내부노드) : 단말 노드가 아닌 A, B와 같은 노드입니다.</li>
+  <li>Degree(차수) : 자식 노드의 수를 말합니다.</li>
+  <li>Preorder Traversal( 전위 순회 ) : Root -&gt; 좌 -&gt; 우 순으로 Tree를 탐색하는 방법입니다.</li>
+  <li>Inorder Traversal( 중위 순회 ) : 좌 -&gt; root -&gt; 우 순으로 Tree를 탐색하는 방법입니다.</li>
+  <li>Postorder Traversal ( 후위 순회 ) : 좌 -&gt; 우 -&gt; root순으로 tree를 탐색합니다.</li>
+</ul>
+:ET
