@@ -1,6 +1,6 @@
-I"S<h1 id="step-4--비선형구조">Step 4 : 비선형구조</h1>
+I"^<h1 id="step-4--비선형구조">Step 4 : 비선형구조</h1>
 <h2 id="트리tree">트리(Tree)</h2>
-<p><img src="https://honbabzone.com/assets/images/post/java/data-tree.png" alt="java 쓰레드 상태" class="align-center open-new" />
+<p><img src="https://minesafety-eng.github.io//assets/images/post/java/data-tree.png" alt="java 쓰레드 상태" class="align-center open-new" />
 트리란 위에도 가볍게 언급한, 하나의 루트 노드와 0개 이상의 자식노드로 이루어진 자료구조입니다. 주로 계층적 관계( Hierarchical Relationship )를 표현하는 자료구조입니다.  트리관련 용어를 살펴보겠습니다.</p>
 <ul>
   <li>Node (노드): A,B,C와 같은 요소입니다.</li>

@@ -3,22 +3,22 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Java에서 자주 보이는 Static이란 무엇일까? | 기록하는 개발자</title>
+<!-- begin _includes/seo.html --><title>Java에서 자주 보이는 Static이란 무엇일까? | 광산보안기사/기능사 길라잡이</title>
 <meta name="description" content="static을 제대로 이해하지 못하고 코딩하던 시절, 혼란스러웠던 부분이 있어 이를 방지하고자 static이 무엇인지 메모리 구조와 함께 알아보겠습니다.">
 
 
-  <meta name="author" content="김석진">
+  <meta name="author" content="신명진">
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:site_name" content="기록하는 개발자">
+<meta property="og:site_name" content="광산보안기사/기능사 길라잡이">
 
   
   <meta property="og:image" content="/assets/images/profile/programmer.png">
 
 <meta property="og:title" content="Java에서 자주 보이는 Static이란 무엇일까?">
-<meta property="og:url" content="https://honbabzone.com/java/java-static/">
+<meta property="og:url" content="https://minesafety-eng.github.io//java/java-static/">
 
 
   <meta property="og:description" content="static을 제대로 이해하지 못하고 코딩하던 시절, 혼란스러웠던 부분이 있어 이를 방지하고자 static이 무엇인지 메모리 구조와 함께 알아보겠습니다.">
@@ -59,7 +59,7 @@
   
 
 
-<link rel="canonical" href="https://honbabzone.com/java/java-static/">
+<link rel="canonical" href="https://minesafety-eng.github.io//java/java-static/">
 
 
 
@@ -69,8 +69,8 @@
     "@context": "https://schema.org",
     
       "@type": "Person",
-      "name": "김석진",
-      "url": "https://honbabzone.com/"
+      "name": "신명진",
+      "url": "https://minesafety-eng.github.io//"
     
   }
 </script>
@@ -83,7 +83,7 @@
 <!-- end _includes/seo.html -->
 
 
-<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="기록하는 개발자 Feed">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="광산보안기사/기능사 길라잡이 Feed">
 
 <!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -138,7 +138,7 @@
       <nav id="site-nav" class="greedy-nav">
         
         <a class="site-title" href="/">
-          기록하는 개발자 Blog
+          광산보안기사/기능사 길라잡이
           <span class="site-subtitle">Version 1.0</span>
         </a>
         <ul class="visible-links"><li class="masthead__menu-item">
@@ -183,7 +183,7 @@
     
       
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="https://honbabzone.com/" itemprop="item"><span itemprop="name">Home</span></a>
+          <a href="https://minesafety-eng.github.io//" itemprop="item"><span itemprop="name">Home</span></a>
           <meta itemprop="position" content="1" />
         </li>
         <span class="sep">/</span>
@@ -221,18 +221,18 @@
       
 
       
-        <img src="/assets/images/profile/programmer.png" alt="김석진" itemprop="image">
+        <img src="/assets/images/profile/programmer.png" alt="신명진" itemprop="image">
       
     </div>
   
 
   <div class="author__content">
     
-      <h3 class="author__name" itemprop="name">김석진</h3>
+      <h3 class="author__name" itemprop="name">신명진</h3>
     
     
       <div class="author__bio" itemprop="description">
-        <p>꾸준히 공부하는 개발자입니다. <br /> 블로그 포스트 글에서 잘못된 부분이나 수정했으면 하는 부분, 적극적으로 댓글 남겨주신다면 감사하겠습니다.</p>
+        <p>광산의 안전에 대하여 공부하는 사람입니다. <br /> 지금은 기본적인 문제풀이 위주로 포스팅을 올리지만, 다뤘으면 하는 주제에 관하여 댓글 남겨주신다면 적극 반영하겠습니다.</p>
 
       </div>
     
@@ -250,21 +250,27 @@
       
         
           
-        
-          
-            <li><a href="http://honbabzone.com/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i> Website</a></li>
+            <li><a href="mailto:smj0226@kores.or.kr" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
           
         
           
-        
-          
-            <li><a href="https://www.facebook.com/seokjin.kim.16" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+            <li><a href="https://minesafety.tistory.com/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i> Website</a></li>
           
         
           
-            <li><a href="https://github.com/7271kim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+            <li><a href="https://twitter.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
           
         
+          
+            <li><a href="https://www.facebook.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+          
+        
+          
+            <li><a href="https://github.com/minesafety-eng" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://instagram.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i> Instagram</a></li>
           
         
       
@@ -400,7 +406,7 @@ JVM은 크게 Garbage collector, Execution Engine, Class Loader, Runtime Data Ar
 
 <p class="notice--danger"><strong>Please Note:</strong> 좀 더 JVM에 대해 자세한 부분은 <a href="/java/java-jvm/" target="_blank">JVM 포스트</a>를 참고하시기 바랍니다.</p>
 
-<p><img src="https://honbabzone.com/assets/images/post/jvm/jvm-structure.png" alt="jvm의 구조" class="align-center open-new" /></p>
+<p><img src="https://minesafety-eng.github.io//assets/images/post/jvm/jvm-structure.png" alt="jvm의 구조" class="align-center open-new" /></p>
 
 <p>Runtime Data Area은 Method Area, Heap Area, Stack Area, PC register, Native Method Stack 총 5가지로 구분됩니다. 
 이 중에서 static을 이해하는 데 필요한 3가지의 영역 중 하나인 <strong>Method Area(Static Area)</strong>은 초기 로드 필요한 정보들 즉 필요한 패키지 클래스, 인터페이스, 상수, <strong>static변수</strong>, final 변수, 클래스 멤버 변수 등 <strong>로드된 후 메모리에 항상 상주하고 있는 영역</strong>입니다. 
@@ -529,11 +535,11 @@ Heap Area은 메서드 안에서 사용되는 객체들을 위한 영역으로 n
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Java%EC%97%90%EC%84%9C+%EC%9E%90%EC%A3%BC+%EB%B3%B4%EC%9D%B4%EB%8A%94+Static%EC%9D%B4%EB%9E%80+%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C%3F%20https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-static%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Java%EC%97%90%EC%84%9C+%EC%9E%90%EC%A3%BC+%EB%B3%B4%EC%9D%B4%EB%8A%94+Static%EC%9D%B4%EB%9E%80+%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C%3F%20https%3A%2F%2Fminesafety-eng.github.io%2F%2Fjava%2Fjava-static%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-static%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fminesafety-eng.github.io%2F%2Fjava%2Fjava-static%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-static%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fminesafety-eng.github.io%2F%2Fjava%2Fjava-static%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
@@ -738,17 +744,15 @@ Heap Area은 메서드 안에서 사용되는 객체들을 위한 영역으로 n
         
       
         
-          <li><a href="https://www.facebook.com/seokjin.kim.16" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
-        
-      
-        
-          <li><a href="https://github.com/7271kim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          <li><a href="https://github.com/minesafety-eng" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
         
       
         
       
         
       
+        
+          <li><a href="" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i> Instagram</a></li>
         
       
     
@@ -757,7 +761,7 @@ Heap Area은 메서드 안에서 사용되는 객체들을 위한 영역으로 n
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2021 김석진. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; I referred to the  <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2021 신명진. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; I referred to the  <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
       </footer>
     </div>
@@ -779,12 +783,12 @@ Heap Area은 메서드 안에서 사용되는 객체들을 위한 영역으로 n
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://honbabzone.com/java/java-static/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.url = "https://minesafety-eng.github.io//java/java-static/";  // Replace PAGE_URL with your page's canonical URL variable
       this.page.identifier = "/java/java-static"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
-      s.src = 'https://7271kim.disqus.com/embed.js';
+      s.src = 'https://mjshinetm.disqus.com/embed.js';
       s.setAttribute('data-timestamp', +new Date());
       (d.head || d.body).appendChild(s);
     })();

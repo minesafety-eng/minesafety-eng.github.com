@@ -1,0 +1,224 @@
+I"`a<h2 id="step-1-enumeration의-이해와-정리">Step 1: Enumeration의 이해와 정리</h2>
+<p>데이터 중에서는 요일 ( 월, 화, 수, 목, 금, 토, 일 ), 계절( 봄, 여름, 가을, 겨울) 등과 같이 몇 가지 한정된 값을 갖는 경우가 흔히 있습니다. 
+요일, 계절과 같이 한정된 데이터만을 가지는 타입을 <strong>Enumeration Type</strong>이라고 하며 <strong>열거타입</strong>에 들어가는 값( 월, 화 ,수 등 )들을 <strong>열거 상수( Enumeration constant)</strong>라고 합니다. 
+JAVA는 JAVA 1.5부터 이러한 열거형 타입들을 사용할 수 있게 되었으며 enum 데이터 타입이라고 표시됩니다. 
+관례로 열거타입을 선언하기 위해서는 JAVA Class 명처럼 열거타입의 이름을 정하고 <strong>타입이름</strong>으로 첫 글자 대문자로 하여 .java 파일을 생성합니다. 
+JAVA 파일 안에서 class대신 enum을 적어줍니다. 
+열거상수를 적을 때는 관례로 대문자로 적습니다. 만약 열거상수가 2개의 단어로 연결되어 있을 때는 _로 연결하는 것이 관례입니다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Week</span><span class="o">.</span><span class="na">java</span> 
+<span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Week</span> <span class="o">{</span>
+    <span class="no">MONDAY</span><span class="o">,</span> <span class="no">TUSEDAY</span><span class="o">,</span> <span class="no">WEDNESDAY</span><span class="o">,</span> <span class="no">THURSDAY</span><span class="o">,</span> <span class="no">FRIDAY</span><span class="o">,</span> <span class="no">SATURDAY</span><span class="o">,</span> <span class="no">SUNDAY</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<h2 id="step-2-enum과-메모리-구조">Step 2: Enum과 메모리 구조</h2>
+<p>JAVA에서 열거 상수는 상수 각각을 내부적으로 public static final 필드이면서 객체로 제공되도록 합니다. 
+static이 붙어있기 때문에 각각의 상수는 클래스변수로 클래스로더가 로드 시점에 JVM Method영역에 해당 클래스 변수들을 항상 상주시켜 프로그램이 종료되기 전에는 언제든지 가져다 쓸 수 있는 주소공간을 확보합니다.</p>
+
+<p><img src="https://minesafety-eng.github.io//assets/images/post/java/emum-memory.png" alt="Emum의 메모리 위치" class="align-center open-new" /></p>
+
+<p class="notice--danger"><strong>Please Note:</strong> Emum을  호출하기 전에는 단순 공간만 확보합니다.<br />
+좀 더 JVM에 대해 자세한 부분은 <a href="/java/java-jvm/" target="_blank">JVM 포스트</a>를 참고하시기 바랍니다.</p>
+
+<h2 id="step-3-enum과-메모리-초기화">Step 3: Enum과 메모리 초기화</h2>
+<p>이제는 사용 부를 살펴보겠습니다. 사용 부에서는 클래스의 인스턴스를 생성하는 것과 비슷하지만, new가 없는 형태입니다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Week</span> <span class="n">today</span> <span class="o">=</span> <span class="nc">Week</span><span class="o">.</span><span class="na">MONDAY</span><span class="o">;</span>
+</code></pre></div></div>
+<p>어떤 클래스에서든 해당 로직을 만나면  Heap영역에 Week 객체는 MONDAY부터 SUNDAY까지 각각 java.lang.Enum클래스를 상속받는 고유의 객체가 만들어지고 Method 영역의 열거상수들은 해당 Heap영역에 생성된 객체를 바라봅니다.
+즉 로직을 만나는 순간 이전에 Method에 할당되었던 메모리에 Heap영영에 생긴 객체들이 할당됩니다.<br /><br />
+<img src="https://minesafety-eng.github.io//assets/images/post/java/emum-memory2.png" alt="Emum의 메모리 할당" class="align-center open-new" /></p>
+
+<p><br />today변수는 JVM Stack영역에서 사용하므로 stack영역의 today는 Method 영역에 있는 MONDAY의 객체의 주소 값을 복사하므로 today와 Week.MONDAY는 Heap에 생성된 같은 객체를 바라봅니다.
+<br /><br />
+<img src="https://minesafety-eng.github.io//assets/images/post/java/emum-memory3.png" alt="enum의 관계" class="align-center open-new" />
+<br /><br /></p>
+
+<p>이러한 이유로 today == Week.SUNDAY 로직이 같은 객체를 반환하므로 true가 성립됩니다.
+같은 이유로 아래 코드가 true가 나와도 이해가 됩니다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Week</span> <span class="n">thisWeek</span> <span class="o">=</span> <span class="nc">Week</span><span class="o">.</span><span class="na">SUNDAY</span><span class="o">;</span>
+<span class="nc">Week</span> <span class="n">nextWeek</span> <span class="o">=</span> <span class="nc">Week</span><span class="o">.</span><span class="na">SUNDAY</span><span class="o">;</span>
+<span class="n">thisWeek</span> <span class="o">==</span> <span class="n">nextWeek</span> <span class="c1">// true</span>
+</code></pre></div></div>
+
+<h2 id="step-4-enum의-응용">Step 4: Enum의 응용</h2>
+<p>열거상수 즉 열거객체들은 java.lang.Enum클래스를 상속받기 떄문에 name(), ordinal(), compareTo(), valueOf(String name), values() 메서드를 사용할 수 있습니다. 
+관례적으로 열거 타입을 선언하기 위해서는 열거 타입의 이름(첫 글자 대문자)을 정하고 타입이름으로 .java 파일을 생성하지만, 특정 클래스에서만 필요한 열거 타입이라면 아래와 같이 사용 가능합니다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Shoes</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">size</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Type</span> <span class="o">{</span>
+        <span class="no">WALKING</span><span class="o">,</span> <span class="no">RUNNING</span><span class="o">,</span> <span class="no">TRACKING</span><span class="o">,</span> <span class="no">HIKING</span>   
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+<p>enum은 class처럼 생성자를 가질 수 있지만 고정된 상수의 집합임으로 런타임이 아닌 컴파일 타임에 모든 값을 가지고 있어야 하기에 private로 선언되어야 오류가 발생하지 않습니다. 
+각각의 열거 상수 객체가 Heap에서 각각 생성됨으로 아래와 같은 결과가 발생합니다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Color</span> <span class="o">{</span>
+    <span class="no">RED</span><span class="o">,</span> <span class="no">GREEN</span><span class="o">,</span> <span class="no">BLUE</span><span class="o">;</span> 
+    <span class="kd">private</span> <span class="nf">Color</span><span class="o">()</span> <span class="o">{</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Constructor called for : "</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span> 
+    <span class="o">}</span> 
+<span class="o">}</span>
+
+<span class="nc">Color</span> <span class="n">color</span> <span class="o">=</span> <span class="nc">Color</span><span class="o">.</span><span class="na">BLUE</span><span class="o">;</span>
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-wl" data-lang="wl"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="o">//</span><span class="w"> </span><span class="err">출력</span><span class="w">
+</span><span class="nv">Constructor</span><span class="w"> </span><span class="nv">called</span><span class="w"> </span><span class="nv">for</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nv">RED</span><span class="w">
+</span><span class="nv">Constructor</span><span class="w"> </span><span class="nv">called</span><span class="w"> </span><span class="nv">for</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nv">GREEN</span><span class="w">
+</span><span class="nv">Constructor</span><span class="w"> </span><span class="nv">called</span><span class="w"> </span><span class="nv">for</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nv">BLUE</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="enum-일반-메서드">Enum 일반 메서드</h3>
+<p>enum은 다른 추상 메서드가 아닌 일반 메서드를 가질 수 있습니다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Color</span> <span class="o">{</span>
+    <span class="no">RED</span><span class="o">,</span> <span class="no">GREEN</span><span class="o">,</span> <span class="no">BLUE</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">colorInfo</span><span class="o">()</span> <span class="o">{</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Universal Color"</span><span class="o">);</span> 
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nc">Color</span><span class="o">.</span><span class="na">BLUE</span><span class="o">.</span><span class="na">colorInfo</span><span class="o">();</span>
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-wl" data-lang="wl"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="code"><pre><span class="o">//</span><span class="w"> </span><span class="err">출력</span><span class="w">
+</span><span class="nv">Universal</span><span class="w"> </span><span class="nv">Color</span><span class="o">;</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="enum-추가-속성과-생성자">Enum 추가 속성과 생성자</h3>
+<p>열거형 상수는 추가 속성을 부여할 수 있으며 추가 속성이 여러 개가 있을 시 생성자에 순서대로 각각의 타입으로 넣을 수 있습니다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Color</span> <span class="o">{</span>
+
+    <span class="no">RED</span><span class="o">(</span><span class="s">"빨강"</span><span class="o">,</span><span class="mi">100</span><span class="o">),</span> <span class="no">GREEN</span><span class="o">(</span><span class="s">"초록"</span><span class="o">,</span><span class="mi">10</span><span class="o">),</span> <span class="no">BLUE</span><span class="o">(</span><span class="s">"파랑"</span><span class="o">,</span><span class="mi">30</span><span class="o">);</span> 
+    
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">koreName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">pay</span><span class="o">;</span>
+
+    <span class="c1">// 빨강, 100 순서대로 할당된다.</span>
+    <span class="kd">private</span> <span class="nf">Color</span><span class="o">(</span><span class="nc">String</span> <span class="n">koreName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">pay</span><span class="o">){</span> 
+        <span class="k">this</span><span class="o">.</span><span class="na">koreName</span> <span class="o">=</span> <span class="n">koreName</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">pay</span>      <span class="o">=</span> <span class="n">pay</span><span class="o">;</span>
+    <span class="o">}</span> 
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">colorInfo</span><span class="o">(){</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">koreName</span> <span class="o">+</span><span class="s">"의 비용은 "</span> <span class="o">+</span> <span class="n">pay</span> <span class="o">+</span><span class="s">"입니다."</span><span class="o">);</span> 
+    <span class="o">}</span> 
+<span class="o">}</span>
+
+<span class="nc">Color</span><span class="o">.</span><span class="na">BLUE</span><span class="o">.</span><span class="na">colorInfo</span><span class="o">();</span>
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-wl" data-lang="wl"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="code"><pre><span class="o">//</span><span class="w"> </span><span class="err">출력</span><span class="w"> 
+</span><span class="err">파랑의</span><span class="w"> </span><span class="err">비용은</span><span class="w"> </span><span class="m">30</span><span class="err">입니다</span><span class="o">.</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="enum-메서드-재정의">Enum 메서드 재정의</h3>
+<p>abstract 메서드를 통해 열거형 상수안에 각 상수별로 특정 메서드를 재정의 하도록 할 수 있습니다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Color</span> <span class="o">{</span>
+    <span class="no">RED</span><span class="o">(</span><span class="s">"빨강"</span><span class="o">,</span><span class="mi">100</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">},</span> <span class="no">GREEN</span><span class="o">(</span><span class="s">"초록"</span><span class="o">,</span><span class="mi">10</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">},</span> <span class="no">BLUE</span><span class="o">(</span><span class="s">"파랑"</span><span class="o">,</span><span class="mi">30</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">};</span> 
+    
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">koreName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">pay</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nf">Color</span><span class="o">(</span><span class="nc">String</span> <span class="n">koreName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">pay</span><span class="o">){</span> 
+        <span class="k">this</span><span class="o">.</span><span class="na">koreName</span> <span class="o">=</span> <span class="n">koreName</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">pay</span>      <span class="o">=</span> <span class="n">pay</span><span class="o">;</span>
+    <span class="o">}</span> 
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">colorInfo</span><span class="o">(){</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">koreName</span> <span class="o">+</span><span class="s">"의 비용은 "</span> <span class="o">+</span> <span class="n">pay</span> <span class="o">+</span><span class="s">"입니다."</span><span class="o">);</span> 
+    <span class="o">}</span> 
+    
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">calc</span><span class="o">(</span> <span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Color</span><span class="o">.</span><span class="na">BLUE</span><span class="o">.</span><span class="na">calc</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span><span class="mi">10</span><span class="o">));</span>
+
+
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-wl" data-lang="wl"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="code"><pre><span class="o">//</span><span class="w"> </span><span class="err">출력</span><span class="w"> 
+</span><span class="m">50</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="중첩-enum">중첩 Enum</h3>
+<p>만약 enum상수끼리 공유하는 코드를 만들고 싶다면 중첩 Enum을 만들어 응용할 수 있습니다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Color</span> <span class="o">{</span>
+    <span class="no">RED</span><span class="o">(</span><span class="s">"빨강"</span><span class="o">,</span><span class="mi">100</span><span class="o">,</span><span class="nc">CheckPay</span><span class="o">.</span><span class="na">RED</span> <span class="o">),</span> <span class="no">GREEN</span><span class="o">(</span><span class="s">"초록"</span><span class="o">,</span><span class="mi">30</span><span class="o">,</span><span class="nc">CheckPay</span><span class="o">.</span><span class="na">RED</span><span class="o">),</span> <span class="no">BLUE</span><span class="o">(</span><span class="s">"파랑"</span><span class="o">,</span><span class="mi">49</span><span class="o">,</span><span class="nc">CheckPay</span><span class="o">.</span><span class="na">BLUE</span><span class="o">);</span>
+    
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">koreName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">pay</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">CheckPay</span> <span class="n">checkPay</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nf">Color</span><span class="o">(</span><span class="nc">String</span> <span class="n">koreName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">pay</span><span class="o">,</span> <span class="nc">CheckPay</span> <span class="n">checkPay</span> <span class="o">){</span> 
+        <span class="k">this</span><span class="o">.</span><span class="na">koreName</span> <span class="o">=</span> <span class="n">koreName</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">pay</span>      <span class="o">=</span> <span class="n">pay</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">checkPay</span> <span class="o">=</span> <span class="n">checkPay</span><span class="o">;</span>
+    <span class="o">}</span> 
+
+    
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">checkPay</span><span class="o">.</span><span class="na">calc</span><span class="o">(</span><span class="n">pay</span><span class="o">);</span>
+    <span class="o">};</span>
+    
+    <span class="kd">private</span> <span class="kd">enum</span> <span class="nc">CheckPay</span><span class="o">{</span>
+        <span class="no">RED</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="o">(</span><span class="kt">int</span> <span class="n">pay</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">pay</span><span class="o">*</span><span class="mi">100</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">},</span><span class="no">BLUE</span><span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">int</span> <span class="nf">calc</span><span class="o">(</span><span class="kt">int</span> <span class="n">pay</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">pay</span><span class="o">*</span><span class="mi">50</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+        
+        <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">calc</span><span class="o">(</span> <span class="kt">int</span> <span class="n">pay</span> <span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Color</span><span class="o">.</span><span class="na">BLUE</span><span class="o">.</span><span class="na">calc</span><span class="o">());</span>
+
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-wl" data-lang="wl"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="code"><pre><span class="o">//</span><span class="w"> </span><span class="err">출력</span><span class="w"> 
+</span><span class="m">2450</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p class="notice--info"><strong>참고자료</strong> <br /> <br />
+– 이것이 자바다 <br /> 
+– <a href="https://wedul.site/285" target="_blank">https://wedul.site/285</a><br />
+– <a href="http://woowabros.github.io/tools/2017/07/10/java-enum-uses.html" target="_blank">http://woowabros.github.io/tools/2017/07/10/java-enum-uses.html</a><br />
+– <a href="https://velog.io/@pop8682/Enum-27k067ns4a" target="_blank">https://velog.io/@pop8682/Enum-27k067ns4a</a><br />
+– <a href="https://www.opentutorials.org/module/1226/8025" target="_blank">https://www.opentutorials.org/module/1226/8025</a><br /></p>
+:ET

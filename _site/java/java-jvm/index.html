@@ -3,22 +3,22 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>JVM( Java Virtual Machine )이란 | 기록하는 개발자</title>
+<!-- begin _includes/seo.html --><title>JVM( Java Virtual Machine )이란 | 광산보안기사/기능사 길라잡이</title>
 <meta name="description" content="JAVA를 공부하는 데 있어 기본이 되는 JVM이 무엇인지 학습하고, JVM의 메모리 구조와 Garbage collector, Execution Engine, Class Loader에 대한 기본적인 설명 등 JVM이 어떻게 돌아가는지에 대한 기초를 잡는 게시물">
 
 
-  <meta name="author" content="김석진">
+  <meta name="author" content="신명진">
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:site_name" content="기록하는 개발자">
+<meta property="og:site_name" content="광산보안기사/기능사 길라잡이">
 
   
   <meta property="og:image" content="/assets/images/profile/programmer.png">
 
 <meta property="og:title" content="JVM( Java Virtual Machine )이란">
-<meta property="og:url" content="https://honbabzone.com/java/java-jvm/">
+<meta property="og:url" content="https://minesafety-eng.github.io//java/java-jvm/">
 
 
   <meta property="og:description" content="JAVA를 공부하는 데 있어 기본이 되는 JVM이 무엇인지 학습하고, JVM의 메모리 구조와 Garbage collector, Execution Engine, Class Loader에 대한 기본적인 설명 등 JVM이 어떻게 돌아가는지에 대한 기초를 잡는 게시물">
@@ -59,7 +59,7 @@
   
 
 
-<link rel="canonical" href="https://honbabzone.com/java/java-jvm/">
+<link rel="canonical" href="https://minesafety-eng.github.io//java/java-jvm/">
 
 
 
@@ -69,8 +69,8 @@
     "@context": "https://schema.org",
     
       "@type": "Person",
-      "name": "김석진",
-      "url": "https://honbabzone.com/"
+      "name": "신명진",
+      "url": "https://minesafety-eng.github.io//"
     
   }
 </script>
@@ -83,7 +83,7 @@
 <!-- end _includes/seo.html -->
 
 
-<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="기록하는 개발자 Feed">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="광산보안기사/기능사 길라잡이 Feed">
 
 <!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -138,7 +138,7 @@
       <nav id="site-nav" class="greedy-nav">
         
         <a class="site-title" href="/">
-          기록하는 개발자 Blog
+          광산보안기사/기능사 길라잡이
           <span class="site-subtitle">Version 1.0</span>
         </a>
         <ul class="visible-links"><li class="masthead__menu-item">
@@ -183,7 +183,7 @@
     
       
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="https://honbabzone.com/" itemprop="item"><span itemprop="name">Home</span></a>
+          <a href="https://minesafety-eng.github.io//" itemprop="item"><span itemprop="name">Home</span></a>
           <meta itemprop="position" content="1" />
         </li>
         <span class="sep">/</span>
@@ -221,18 +221,18 @@
       
 
       
-        <img src="/assets/images/profile/programmer.png" alt="김석진" itemprop="image">
+        <img src="/assets/images/profile/programmer.png" alt="신명진" itemprop="image">
       
     </div>
   
 
   <div class="author__content">
     
-      <h3 class="author__name" itemprop="name">김석진</h3>
+      <h3 class="author__name" itemprop="name">신명진</h3>
     
     
       <div class="author__bio" itemprop="description">
-        <p>꾸준히 공부하는 개발자입니다. <br /> 블로그 포스트 글에서 잘못된 부분이나 수정했으면 하는 부분, 적극적으로 댓글 남겨주신다면 감사하겠습니다.</p>
+        <p>광산의 안전에 대하여 공부하는 사람입니다. <br /> 지금은 기본적인 문제풀이 위주로 포스팅을 올리지만, 다뤘으면 하는 주제에 관하여 댓글 남겨주신다면 적극 반영하겠습니다.</p>
 
       </div>
     
@@ -250,21 +250,27 @@
       
         
           
-        
-          
-            <li><a href="http://honbabzone.com/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i> Website</a></li>
+            <li><a href="mailto:smj0226@kores.or.kr" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
           
         
           
-        
-          
-            <li><a href="https://www.facebook.com/seokjin.kim.16" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+            <li><a href="https://minesafety.tistory.com/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i> Website</a></li>
           
         
           
-            <li><a href="https://github.com/7271kim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+            <li><a href="https://twitter.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
           
         
+          
+            <li><a href="https://www.facebook.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+          
+        
+          
+            <li><a href="https://github.com/minesafety-eng" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://instagram.com/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i> Instagram</a></li>
           
         
       
@@ -416,7 +422,7 @@
 
 <h2 id="step-1-jvm의-기본-구성">Step 1: JVM의 기본 구성</h2>
 <p>기본적으로 JAVA 프로그램이 사용자에 의해 실행되면 JVM은 운영체제로부터 필요한 메모리를 할당받아 JAVA 프로그램을 처리합니다. 1995년부터 1999년도 윈도우 프로그램 개발이 대세였던 시절 JAVA는 메모리 및 CPU를 지나치게 많이 사용한다는 단점 때문에 많이 사용되는 언어가 아니었습니다. C++언어가 주류를 이루었지만 1999년도부터 인터넷이 활성화되고 하드웨어의 큰 발전과 스마트폰의 등장은 JAVA 붐을 일으켰고 이제는 세계시장에서 점유율 1위라는 타이틀을 차지하고 있습니다. 이전에는 윈도우환경, 리눅스 또는 유닉스 환경에서 실행되는 프로그램 만들기 위해서는 각자의 환경에 따라 개발을 달리 해야 하는 문제가 있었습니다. 하지만 JAVA는 JVM을 통하여 실행되기 때문에 어떠한 운영체제에서도 동일한 형태로 실행시킬 수 있다는  장점이 있습니다.<br />
-<img src="https://honbabzone.com/assets/images/post/jvm/statistics-java.png" alt="2019 java 점유율" class="align-center open-new" />
+<img src="https://minesafety-eng.github.io//assets/images/post/jvm/statistics-java.png" alt="2019 java 점유율" class="align-center open-new" />
 <br />
  JVM은 크게 Garbage collector, Execution Engine, Class Loader, Runtime Data Area 4가지 영역으로 나누어집니다. 이 중에서 개괄적으로 Garbage collector, Execution Engine, Class Loader에 대해 설명하고 메모리 구조를 파악하기 위해 Runtime Data Area에 대해 조금 더 정리하겠습니다. Garbage collector, Execution Engine, Class Loader는 차츰차츰 단독 포스트로 하여 기존 공부한 부분과 새롭게 알게 된 부분을 다시 정리하겠습니다.</p>
 
@@ -446,7 +452,7 @@ JAVA언어가 유료화가 되는 것이 아니라 오라클에서 만든 JDK 11
 <h3 id="-runtime-data-area">④ Runtime Data Area</h3>
 <p>JVM메모리 영역으로 OS로부터 별도로 메모리 공간을 할당받고 JAVA 어플리케이션을 실행할 때 사용됩니다. Method Area, Heap Area, Stack Area, PC register, Native Method Stack 총 5가지로 구분됩니다.</p>
 
-<p><img src="https://honbabzone.com/assets/images/post/jvm/jvm-structure.png" alt="jvm의 구조" class="align-center open-new" /></p>
+<p><img src="https://minesafety-eng.github.io//assets/images/post/jvm/jvm-structure.png" alt="jvm의 구조" class="align-center open-new" /></p>
 
 <h2 id="step-2-runtime-data-area">Step 2: Runtime Data Area</h2>
 <h3 id="-method-areastatic-area">① Method Area(Static Area)</h3>
@@ -457,7 +463,7 @@ JAVA언어가 유료화가 되는 것이 아니라 오라클에서 만든 JDK 11
 
 <h3 id="-stack-area">③ Stack Area</h3>
 <p><strong>Stack Area</strong>은 스레드마다 하나씩 존재하며 쓰레드가 시작될 때 할당됩니다. 내부에는 매소드에서 직접 사용할 <strong>지역 변수, 파라미터, 리턴 값, 참조 변수일 경우 주소 값</strong> 들이 저장됩니다. 만약 프로그램에서 매소드가 호출되면 매소드와 매소드 정보는 차곡차곡 Stack에 쌓이면서(PUSH) 내부 과정을 실행합니다. 매소드 호출이 종료되면 해당 매소드는 Stack Area에서 제거(POP) 됩니다. 
-<img src="https://honbabzone.com/assets/images/post/jvm/jvm-stack.png" alt="jvm stack 영역" class="align-center open-new" /></p>
+<img src="https://minesafety-eng.github.io//assets/images/post/jvm/jvm-stack.png" alt="jvm stack 영역" class="align-center open-new" /></p>
 
 <h3 id="-pc-register">④ PC register</h3>
 <p><strong>PC register</strong>은 Thread가 생성될 때마다 생성되는 영역으로 Program counter 즉 현재 쓰레드가 실행되는 부분의 주소와 해당 명령을 저장하고 있는 영역입니다. 이것을 이용해 다수의 쓰레드들이 명령의 흐름을 잃지 않고 함수가 순차적으로 실행됩니다.</p>
@@ -468,7 +474,7 @@ JAVA언어가 유료화가 되는 것이 아니라 오라클에서 만든 JDK 11
 <p>이제는 Runtime Data Area영역 중  Heap Area영역이 어떻게 구성되어 있는지 살펴보겠습니다.</p>
 
 <h2 id="step-3-heap-area">Step 3: Heap Area</h2>
-<p><img src="https://honbabzone.com/assets/images/post/jvm/jvm-heap-area.png" alt="jvm Heap 영역" class="align-center open-new" />
+<p><img src="https://minesafety-eng.github.io//assets/images/post/jvm/jvm-heap-area.png" alt="jvm Heap 영역" class="align-center open-new" />
 힙 영역은 <strong>Eden, Survivor1, Survivor2, Old 영역, Permanent영역( 생성된 객체들의 주소값이 저장되는 영역 )</strong>으로 나누어집니다. 힙을 이렇게 나눈 이유는 효율적인 GC를 위해서입니다. GC는 크게 <strong>Minor GC와 Major GC</strong>로 구분되는데 이를 살펴보겠습니다. 우선 new를 통해 객체가 생성되면 Eden영역에 생성됩니다. new를 통해 다양한 객체가 생성 중 만약 Eden 영역이 가득 차게 된다면 첫 GC가 일어납니다. Eden에서 참조되지 않은 객체를 제거하고 참조가 유지되는 객체를 S1 영역으로 이동시킵니다. 다시 new를 통한 객체가 생성중 또 Eden 영역이 가득 차게 되면 이번에는 S1 영역이 아닌 S2 영역으로 참조를 유지하고 있는 객체들을 이동시킵니다. 이와 더불어 S1 영역에 있는 객체 중 참조가 유지되고 있는 객체 또한 S2로 이동시키고 age를 +1 합니다. 이를 <strong>Minor GC</strong>라고 부릅니다. 이렇게 Eden -&gt; S1 -&gt; S2-&gt;S1…이 반복적으로 일어나게 되면서 오랫동안 살아남는 객체는 age가 지속해서 증가하게 되는데 어느 정도 age가 증가하여 오랫동안 살아남으면 이제는 Old 영역으로 객체를 옮기게 됩니다. <strong>Major GC</strong>는 Old 영역에 있는 모든 객체를 검사하고 참조되고 있는지 확인 후 참조되지 않은 객체들을 모아 한번에 제거하는 것을 말합니다. 이를 Full GC라고도 하며 Full GC는 GC를 제외한 모든 쓰레드가 중지되어야 합니다.</p>
 
 <h2 id="step-4-예제로-알아보기">Step 4: 예제로 알아보기</h2>
@@ -552,7 +558,7 @@ JAVA언어가 유료화가 되는 것이 아니라 오라클에서 만든 JDK 11
 
 <h3 id="class-loader에-의한-testclass파일의-로드-과정">Class Loader에 의한 Test.class파일의 로드 과정</h3>
 
-<p><img src="https://honbabzone.com/assets/images/post/java/jvm-architecture.png" alt="jvm structure 영역" class="align-center open-new" /><br />
+<p><img src="https://minesafety-eng.github.io//assets/images/post/java/jvm-architecture.png" alt="jvm structure 영역" class="align-center open-new" /><br />
 <strong>① Main 메서드 안에서 int one       = Test.ONE;을 만났다!</strong><br /><br />
 첫째로 컴파일 시점이 아닌 <strong>runtime 시점</strong>에서 모든 과정은 시작됩니다. 직접 만든 java 어플리케이션을 실행하는 도중(main 메서드 실행 중) 위 Test.class파일을 사용하는 부분을 처음 만나는 순간 Class Loader에 의해 Test.class 파일이 Loading, Linking, Initialization 과정을 겪습니다.</p>
 
@@ -581,7 +587,7 @@ JAVA언어가 유료화가 되는 것이 아니라 오라클에서 만든 JDK 11
 <h4 id="initialization">Initialization</h4>
 <p>최종 단계로 모든 정적 변수는 원래 값으로 할당되고 정적 블록이 실행됩니다. public static int ONE = 1값으로  할당하고,  static 블록 내부 FOUR=”안녕하세요” 를 실행합니다. 이때 Method Area로 Test.class에 있는 모든 정보들이 Method Area안 독립적인 Test.class 영역으로 배치됩니다.</p>
 
-<p><img src="https://honbabzone.com/assets/images/post/java/Method Area.png" alt="Method Area structure 영역" class="align-center open-new" /><br /></p>
+<p><img src="https://minesafety-eng.github.io//assets/images/post/java/Method Area.png" alt="Method Area structure 영역" class="align-center open-new" /><br /></p>
 
 <h4 id="field-information">Field Information</h4>
 <p>Class 멤버변수의 이름 및 데이터 타입, 접근 제어자에 대한 정보를 저장</p>
@@ -601,7 +607,7 @@ JAVA언어가 유료화가 되는 것이 아니라 오라클에서 만든 JDK 11
 <p><strong>② Main 메서드 안에서 Test test = new Test(3);을 만났다!</strong><br /><br />
 Method Area에서 객체정보를 읽어 Heap메모리 안에 독립적으로 생성합니다.</p>
 
-<p><img src="https://honbabzone.com/assets/images/post/java/Heap.png" alt="Heap Area structure 영역" class="align-center open-new" /><br /></p>
+<p><img src="https://minesafety-eng.github.io//assets/images/post/java/Heap.png" alt="Heap Area structure 영역" class="align-center open-new" /><br /></p>
 
 <p class="notice--info"><strong>Info:</strong> 지금까지 이전에 공부했던 내용을 정리해보면서 내용을 다듬었습니다. 잘못된 부분은 댓글 남겨주시면 수정하겠습니다. 감사합니다.</p>
 
@@ -645,11 +651,11 @@ Method Area에서 객체정보를 읽어 Heap메모리 안에 독립적으로 �
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=JVM%28+Java+Virtual+Machine+%29%EC%9D%B4%EB%9E%80%20https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-jvm%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=JVM%28+Java+Virtual+Machine+%29%EC%9D%B4%EB%9E%80%20https%3A%2F%2Fminesafety-eng.github.io%2F%2Fjava%2Fjava-jvm%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-jvm%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fminesafety-eng.github.io%2F%2Fjava%2Fjava-jvm%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-jvm%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fminesafety-eng.github.io%2F%2Fjava%2Fjava-jvm%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
@@ -854,17 +860,15 @@ Method Area에서 객체정보를 읽어 Heap메모리 안에 독립적으로 �
         
       
         
-          <li><a href="https://www.facebook.com/seokjin.kim.16" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
-        
-      
-        
-          <li><a href="https://github.com/7271kim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          <li><a href="https://github.com/minesafety-eng" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
         
       
         
       
         
       
+        
+          <li><a href="" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-instagram" aria-hidden="true"></i> Instagram</a></li>
         
       
     
@@ -873,7 +877,7 @@ Method Area에서 객체정보를 읽어 Heap메모리 안에 독립적으로 �
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2021 김석진. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; I referred to the  <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2021 신명진. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; I referred to the  <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
       </footer>
     </div>
@@ -895,12 +899,12 @@ Method Area에서 객체정보를 읽어 Heap메모리 안에 독립적으로 �
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://honbabzone.com/java/java-jvm/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.url = "https://minesafety-eng.github.io//java/java-jvm/";  // Replace PAGE_URL with your page's canonical URL variable
       this.page.identifier = "/java/java-jvm"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
-      s.src = 'https://7271kim.disqus.com/embed.js';
+      s.src = 'https://mjshinetm.disqus.com/embed.js';
       s.setAttribute('data-timestamp', +new Date());
       (d.head || d.body).appendChild(s);
     })();

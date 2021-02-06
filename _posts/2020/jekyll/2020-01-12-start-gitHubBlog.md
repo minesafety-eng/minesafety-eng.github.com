@@ -128,7 +128,7 @@ Jekyll 폴더구조 :  [https://jekyllrb-ko.github.io/docs/structure/ ]({{"https
 ### _config.yml 수정
 
 지킬 테마에서 자신의 블로그 페이지에 맞게 커스텀 하기위해 _config.yml 을 수정하였습니다.  웹에대한 기본 지식이 있다면 어디를 수정하면 어디가 반영 될 지 직관적으로 알 수 있게 되어있습니다.  꼭 수정해 주어야 하는 부분만 포스팅 하고 이 외 수정한 부분은 아래 주소에서 확인하시기 바랍니다.
-[https://github.com/7271kim/7271kim.github.com/blob/master/_config.yml]({{"https://github.com/7271kim/7271kim.github.com/blob/master/_config.yml"}}){:target="_blank"} 
+[https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/_config.yml]({{"https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/_config.yml"}}){:target="_blank"} 
 
 ```java
 
@@ -142,9 +142,9 @@ title_separator          : "&#124;" # 타이틀 사이 구분자 <title>Welcome 
 subtitle                 : "Version 1.0" # 타이틀 아래에 나올 작은 글씨 
 name                     : "김석진" # 맨 하단 이름 찍히는 영역
 description              : "JAVA와 Spring Boot 혹은 Sever등 다양한 개발을 공부하는 블로그" # Meta 태그에 들어가는 영역 
-url                      : "https://7271kim.github.io/" # GitBlog 호스트 주소
-baseurl                  : # subPath https://7271kim.github.io/blog라고 하고 싶을 시 "/blog" 라고 적는다.
-repository               : "7271kim/7271kim.github.com" # GitHub username/repo-name  
+url                      : "https://minesafety-eng.github.io/" # GitBlog 호스트 주소
+baseurl                  : # subPath https://minesafety-eng.github.io/blog라고 하고 싶을 시 "/blog" 라고 적는다.
+repository               : "minesafety-eng/minesafety-eng.github.com" # GitHub username/repo-name  
 teaser                   : # "/assets/images/senior-couple-4723737_640.jpg" # 홈페이지 기본 티져 이미지
 logo                     : # 타이틀 옆에 작게 들어갈 이미지.
 masthead_title           : "기록하는 개발자 Blog" # 홈페이지 최 상탄에 들어갈 타이틀
@@ -173,7 +173,7 @@ author:
       url: "https://www.facebook.com/seokjin.kim.16"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/7271kim"
+      url: "https://github.com/minesafety-eng"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
@@ -192,7 +192,7 @@ footer:
       url: "https://www.facebook.com/seokjin.kim.16"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/7271kim"
+      url: "https://github.com/minesafety-eng"
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
@@ -237,7 +237,7 @@ defaults:
 
 #### _data/navigation.yml 수정
 원하는 네비게이션 url을 설정해 줍니다. http://naver.com과 같이 상대경로가 아닌 절대경로도 가능합니다. 
-[https://github.com/7271kim/7271kim.github.com/blob/master/_data/navigation.yml]({{"https://github.com/7271kim/7271kim.github.com/blob/master/_data/navigation.yml"}}){:target="_blank"}
+[https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/_data/navigation.yml]({{"https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/_data/navigation.yml"}}){:target="_blank"}
 
 ```java
 main:
@@ -253,7 +253,7 @@ main:
 
 ####   _pages 폴더  및 필요한 .md파일 생성
 이제 카테고리, 테그, about 등 필요한 페이지 정보들을 삽입합니다. 요약해서 말하면 permalink에 쓰여진 url로 요청이 들어오면 layout에 지정된 즉 _layout에 존재하는 {파일명}.html을 불러와 삽입합니다.
-[https://github.com/7271kim/7271kim.github.com/tree/master/_pages]({{"https://github.com/7271kim/7271kim.github.com/tree/master/_pages"}}){:target="_blank"} <br>
+[https://github.com/minesafety-eng/minesafety-eng.github.com/tree/master/_pages]({{"https://github.com/minesafety-eng/minesafety-eng.github.com/tree/master/_pages"}}){:target="_blank"} <br>
 <br>
 **category-archive.md에 대한 예시**
 
@@ -269,7 +269,7 @@ author_profile: true
 
 ####  _config.yml 수정
 하단 defaults: 부분에 _pages 부분을 추가합니다. 
-[https://github.com/7271kim/7271kim.github.com/blob/master/_config.yml]({{"https://github.com/7271kim/7271kim.github.com/blob/master/_config.yml"}}){:target="_blank"} 
+[https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/_config.yml]({{"https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/_config.yml"}}){:target="_blank"} 
 
 ```java
 defaults:
@@ -302,7 +302,7 @@ minimal-mistakes 테마의 경우 node.js를 이용하여 js를 쉽게 minify하
 
 #### package.json 수정
 개발환경은 minify 옵션을 제거하고 파일만 합친 형태로 진행하고 배포시에 minify옵션을 설정하도록 세팅 진행하겠습니다. <br>
-[https://github.com/7271kim/7271kim.github.com/blob/master/package.json]({{"https://github.com/7271kim/7271kim.github.com/blob/master/package.json"}}){:target="_blank"} <br>
+[https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/package.json]({{"https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/package.json"}}){:target="_blank"} <br>
 
 ① devDependencies안에 해당 내용을 추가합니다.
 ```java
@@ -335,7 +335,7 @@ package.json이 존재하는 위치에서 해당 명령어를 실행 하면 현�
 
 ### SCSS설정
 scss문법을 설명하지 않겠습니다. 다만 "/_sass/custom" 위치에 원하는 폴더 및 SCSS파일을 만들고 /_sass/minimal-mistakes.scss 파일 하단에 @import "custom/_cunstomcss"; 같이 작성 한다면 자동으로 컴파일하여 _site/assets/css/main.css으로 들어가게 됩니다.
-[https://github.com/7271kim/7271kim.github.com/blob/master/_sass/minimal-mistakes.scss]({{"https://github.com/7271kim/7271kim.github.com/blob/master/_sass/minimal-mistakes.scss"}}){:target="_blank"} 
+[https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/_sass/minimal-mistakes.scss]({{"https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/_sass/minimal-mistakes.scss"}}){:target="_blank"} 
 ```css
 /* Custom */
 @import "custom/_cunstomcss";
@@ -343,7 +343,7 @@ scss문법을 설명하지 않겠습니다. 다만 "/_sass/custom" 위치에 원
 
 ## Step 6: Admin 세팅
 게시글을  md문법으로 작성하면 되지만 뭔가 불편하여 찾아보니 admin페이지를 통해 쉽게 게시글을 작성할 수 있다는 것을 알게 되어 방법을 공유합니다. 세팅하는 방법은 간단합니다. Gemfile파일 안에 해당 부분을 작성합니다. 
-[https://github.com/7271kim/7271kim.github.com/blob/master/Gemfile]({{"https://github.com/7271kim/7271kim.github.com/blob/master/Gemfile"}}){:target="_blank"}
+[https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/Gemfile]({{"https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/Gemfile"}}){:target="_blank"}
 ```
 gem 'jekyll-admin', group: :jekyll_plugins
 ```
@@ -384,21 +384,21 @@ cmd창에서 해당 명령어 실행합니다.
 
 회원가입이 완료되셨다면  이제 _config.yml을 수정해 줍니다.  provider에  disqus를 추가해주고  shortname에  가입시 작성하였던 Website Name을 적어주시면 됩니다.
 
-[https://github.com/7271kim/7271kim.github.com/blob/master/_config.yml]({{"https://github.com/7271kim/7271kim.github.com/blob/master/_config.yml"}}){:target="_blank"} 
+[https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/_config.yml]({{"https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/_config.yml"}}){:target="_blank"} 
 
 ```
 # 댓글 관련 부분
 comments:
   provider               : "disqus" # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom"
   disqus:
-    shortname            : 7271kim # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
+    shortname            : minesafety-eng # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
 		
 ```
 
 ![DisQue 세팅]({{ site.url }}{{ site.baseurl }}/assets/images/post/jekyll/disque5.png){: .align-center .open-new}
 
 ## Step 9: 구글 검색 가능하게 하기
-게시글에 대해 구글 검색이 가능하게 하고 싶다면 [Google Search Console]({{"https://search.google.com/search-console/about?hl=ko&utm_source=wmx&utm_medium=wmx-welcome"}}){:target="_blank"}을 통해 등록을  진행해야 합니다.  좌측은 구매한 도메인이 있을때 사용하며 하나의 도메인 등록을 통해 모든 서브도메인을 통합 관리하는 방식입니다. 우측(URL prefix)은 일반적인 GitBlog일 때입니다. 우선 우측 URL prefix 방식을 통해 먼저 진행하겠습니다. URL에  http://7271kim.github.io/ 통째로 적습니다.
+게시글에 대해 구글 검색이 가능하게 하고 싶다면 [Google Search Console]({{"https://search.google.com/search-console/about?hl=ko&utm_source=wmx&utm_medium=wmx-welcome"}}){:target="_blank"}을 통해 등록을  진행해야 합니다.  좌측은 구매한 도메인이 있을때 사용하며 하나의 도메인 등록을 통해 모든 서브도메인을 통합 관리하는 방식입니다. 우측(URL prefix)은 일반적인 GitBlog일 때입니다. 우선 우측 URL prefix 방식을 통해 먼저 진행하겠습니다. URL에  http://minesafety-eng.github.io/ 통째로 적습니다.
 ![Google세팅]({{ site.url }}{{ site.baseurl }}/assets/images/post/jekyll/google-regist.png){: .align-center .open-new}
 ![Google세팅]({{ site.url }}{{ site.baseurl }}/assets/images/post/jekyll/google-regist2.png){: .align-center .open-new}
 
@@ -416,7 +416,7 @@ sitemap.xml은 정해진 양식으로 제작되어야 하고, 이 양식은 대�
 
 ### sitemap.xml 생성
 sitemap.xml을 수동으로 작성하기보단 jekyll-sitemap 플러그인 통해서 관리하는 방법을 알아보겠습니다. 우선 Gemfile에 하단부분을 적어줍니다. 
-[https://github.com/7271kim/7271kim.github.com/blob/master/Gemfile]({{"https://github.com/7271kim/7271kim.github.com/blob/master/Gemfile"}}){:target="_blank"}
+[https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/Gemfile]({{"https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/Gemfile"}}){:target="_blank"}
 ```
 gem 'jekyll-sitemap'
 ```
@@ -431,12 +431,12 @@ gem 'jekyll-sitemap'
 
 ### robots.txt 생성
 이제 index.html위치에 robots.txt파일을 생성하고 아래에 내용을 작성합니다.
-[https://github.com/7271kim/7271kim.github.com/blob/master/robots.txt]({{"https://github.com/7271kim/7271kim.github.com/blob/master/robots.txt"}}){:target="_blank"}
+[https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/robots.txt]({{"https://github.com/minesafety-eng/minesafety-eng.github.com/blob/master/robots.txt"}}){:target="_blank"}
 ```
 User-agent: *
 Allow: /
 
-Sitemap: https://7271kim.github.io/sitemap.xml
+Sitemap: https://minesafety-eng.github.io/sitemap.xml
 ```
 
 모든 웹사이트 콘텐츠에 대한 모든 웹 클롤러의 접근을 차단<br>
