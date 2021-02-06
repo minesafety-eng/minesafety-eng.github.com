@@ -157,11 +157,11 @@ author:
   avatar           : "/assets/images/profile/poto.jpg" # 프로필 이미지
   bio              : "꾸준히 공부하는 개발자입니다. <br> 블로그 포스트 글에서 잘못된 부분이나 수정했으면 하는 부분, 적극적으로 댓글 남겨주신다면 감사하겠습니다."
   location         : "Republic of Korea"
-  email            : "7271kim@naver.com"
+  email            : "smj0226@kores.or.kr"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      #url: mailto:7271kim@naver.com
+      #url: mailto:smj0226@kores.or.kr
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "http://honbabzone.com/"
@@ -183,7 +183,7 @@ footer:
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: mailto:7271kim@naver.com
+      url: mailto:smj0226@kores.or.kr
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       # url:
