@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>JVM( Java Virtual Machine )이란 | 기록하는 개발자</title>
+<meta name="description" content="JAVA를 공부하는 데 있어 기본이 되는 JVM이 무엇인지 학습하고, JVM의 메모리 구조와 Garbage collector, Execution Engine, Class Loader에 대한 기본적인 설명 등 JVM이 어떻게 돌아가는지에 대한 기초를 잡는 게시물">
+
+
+  <meta name="author" content="김석진">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="기록하는 개발자">
+
+  
+  <meta property="og:image" content="/assets/images/profile/programmer.png">
+
+<meta property="og:title" content="JVM( Java Virtual Machine )이란">
+<meta property="og:url" content="https://honbabzone.com/java/java-jvm/">
+
+
+  <meta property="og:description" content="JAVA를 공부하는 데 있어 기본이 되는 JVM이 무엇인지 학습하고, JVM의 메모리 구조와 Garbage collector, Execution Engine, Class Loader에 대한 기본적인 설명 등 JVM이 어떻게 돌아가는지에 대한 기초를 잡는 게시물">
+
+
+
+  <meta name="keywords" content="jvm,JVM,java virtual machine, jvm 메모리 구조">
+
+
+
+  <meta property="article:tag" content="JVM">
+
+
+  <meta property="article:tag" content="Java Virtual Machine">
+
+
+  <meta property="article:tag" content="Runtime Data Area">
+
+
+  <meta property="article:section" content="JVM 공부하기">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2020-01-29T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2020-01-30T00:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://honbabzone.com/java/java-jvm/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "김석진",
+      "url": "https://honbabzone.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="기록하는 개발자 Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- 커스텀 영역 -->
+<link rel="shortcut icon" type="image/x-icon" href="/assets/images/profile/favicon.ico" />
+<!-- 구글 나눔고딕 웹폰트 적용 -->
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!-- IE 9 경고-->
+<div class="notice--danger align-center hide" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          <span class="site-subtitle">Version 1.0</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/posts/" >연도별 포스트</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="https://honbabzone.com/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#java" itemprop="item"><span itemprop="name">Java</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">JVM( Java Virtual Machine )이란</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/profile/programmer.png" alt="김석진" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">김석진</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>꾸준히 공부하는 개발자입니다. <br /> 블로그 포스트 글에서 잘못된 부분이나 수정했으면 하는 부분, 적극적으로 댓글 남겨주신다면 감사하겠습니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="http://honbabzone.com/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i> Website</a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://www.facebook.com/seokjin.kim.16" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+          
+        
+          
+            <li><a href="https://github.com/7271kim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:7271kim@naver.com">
+            <meta itemprop="email" content="7271kim@naver.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="JVM( Java Virtual Machine )이란">
+    <meta itemprop="description" content="제임스 고슬링(James Gosling)이 개발한 JAVA 언어를 깊이 이해하기 위해서는 JVM( Java Virtual Machine )의 구조 파악(너무 깊지 않게)이 선행적으로 필요하다고 생각되어 이전 공부했던 내용을 다시 정리하겠습니다.">
+    <meta itemprop="datePublished" content="2020-01-29T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2020-01-30T00:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">JVM( Java Virtual Machine )이란
+</h1>
+          
+            <p class="page__meta">
+                
+                    <strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-01-29">January 29, 2020</time>
+                 <br/>
+                <i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 분 소요
+
+
+            </p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 목차</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#step-1-jvm의-기본-구성">Step 1: JVM의 기본 구성</a>
+    <ul>
+      <li><a href="#-garbage-collectorgc">① Garbage collector(GC)</a></li>
+      <li><a href="#-class-loader">② Class Loader</a></li>
+      <li><a href="#-execution-engine">③ Execution Engine</a></li>
+      <li><a href="#-runtime-data-area">④ Runtime Data Area</a></li>
+    </ul>
+  </li>
+  <li><a href="#step-2-runtime-data-area">Step 2: Runtime Data Area</a>
+    <ul>
+      <li><a href="#-method-areastatic-area">① Method Area(Static Area)</a></li>
+      <li><a href="#-heap-area">② Heap Area</a></li>
+      <li><a href="#-stack-area">③ Stack Area</a></li>
+      <li><a href="#-pc-register">④ PC register</a></li>
+      <li><a href="#-native-method-stack">⑤ Native Method Stack</a></li>
+    </ul>
+  </li>
+  <li><a href="#step-3-heap-area">Step 3: Heap Area</a></li>
+  <li><a href="#step-4-예제로-알아보기">Step 4: 예제로 알아보기</a>
+    <ul>
+      <li><a href="#class-loader에-의한-testclass파일의-로드-과정">Class Loader에 의한 Test.class파일의 로드 과정</a>
+        <ul>
+          <li><a href="#loading">Loading</a></li>
+          <li><a href="#linking">Linking</a></li>
+          <li><a href="#initialization">Initialization</a></li>
+          <li><a href="#field-information">Field Information</a></li>
+          <li><a href="#method-information">Method Information</a></li>
+          <li><a href="#type-infomation">Type Infomation</a></li>
+          <li><a href="#constant-pool">Constant Pool</a></li>
+          <li><a href="#static-variable">Static Variable</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+            </nav>
+          </aside>
+        
+        <p>제임스 고슬링(James Gosling)이 개발한 JAVA 언어를 깊이 이해하기 위해서는 JVM( Java Virtual Machine )의 구조 파악(너무 깊지 않게)이 선행적으로 필요하다고 생각되어 이전 공부했던 내용을 다시 정리하겠습니다.</p>
+
+<h2 id="step-1-jvm의-기본-구성">Step 1: JVM의 기본 구성</h2>
+<p>기본적으로 JAVA 프로그램이 사용자에 의해 실행되면 JVM은 운영체제로부터 필요한 메모리를 할당받아 JAVA 프로그램을 처리합니다. 1995년부터 1999년도 윈도우 프로그램 개발이 대세였던 시절 JAVA는 메모리 및 CPU를 지나치게 많이 사용한다는 단점 때문에 많이 사용되는 언어가 아니었습니다. C++언어가 주류를 이루었지만 1999년도부터 인터넷이 활성화되고 하드웨어의 큰 발전과 스마트폰의 등장은 JAVA 붐을 일으켰고 이제는 세계시장에서 점유율 1위라는 타이틀을 차지하고 있습니다. 이전에는 윈도우환경, 리눅스 또는 유닉스 환경에서 실행되는 프로그램 만들기 위해서는 각자의 환경에 따라 개발을 달리 해야 하는 문제가 있었습니다. 하지만 JAVA는 JVM을 통하여 실행되기 때문에 어떠한 운영체제에서도 동일한 형태로 실행시킬 수 있다는  장점이 있습니다.<br />
+<img src="https://honbabzone.com/assets/images/post/jvm/statistics-java.png" alt="2019 java 점유율" class="align-center open-new" />
+<br />
+ JVM은 크게 Garbage collector, Execution Engine, Class Loader, Runtime Data Area 4가지 영역으로 나누어집니다. 이 중에서 개괄적으로 Garbage collector, Execution Engine, Class Loader에 대해 설명하고 메모리 구조를 파악하기 위해 Runtime Data Area에 대해 조금 더 정리하겠습니다. Garbage collector, Execution Engine, Class Loader는 차츰차츰 단독 포스트로 하여 기존 공부한 부분과 새롭게 알게 된 부분을 다시 정리하겠습니다.</p>
+
+<p class="notice--info"><strong>좀 더 정확한 개념을 위한 설명</strong> <br /><br />
+<strong>JVM</strong><br />
+자바 바이트코드들을 OS에서 어떻게 실행할 지에 대한 표준 스펙이며 다양한 구현체가 존재합니다. JAVA라는 언어로 개발하기 때문에 OS에 독립적이란 의미지 JVM자체로는 OS마다 어떻게 실행되어야 하는지 정의된 것을 구현하기 때문에 OS에 종속적입니다. <br />
+좀 더 정확히는 JVM은 하나의 표준이자 스펙입니다. 이러한 JVM 표준을 가지고 특정 밴더( 오라클, 아마존 등등 )들이 JVM을 구현합니다. <br /><br />
+<strong>JRE</strong><br />
+JAVA어플리케이션을 실행하기 위한 최소 배포 단위로서 JVM과 필요 Library가 포함됩니다.( 실행이 목적이라 개발 관련 도구는  포함되지 않습니다.) <br />
+오라클은 자바 11부터 JDK만 제공하며 JRE를 따로 제공하지 않습니다.<br /><br />
+<strong>JDK</strong><br />
+JRE + 개발에 필요한 툴이 포함됩니다. <br />
+오라클은 자바 11부터 JDK만 제공하며 JRE를 따로 제공하지 않습니다.<br />
+소스코드를 작성할 때 사용하는 자바는 플랫폼 독립적입니다.<br /><br />
+<strong>JAVA 유료화에 대한 잘못된 상식</strong><br />
+JAVA언어가 유료화가 되는 것이 아니라 오라클에서 만든 JDK 11버전부터 상용으로 사용할 때 유료입니다. 즉 여러 JDK 중에서 오라클에서 만든 Oracle JDK11만이 유료입니다.  다른 Oracle  open JDK는 무료이며 아마존에서 만든 JDK, 다른 벤더들이 구현한 JDK는 무료입니다.</p>
+
+<h3 id="-garbage-collectorgc">① Garbage collector(GC)</h3>
+<p>잠시 후에 공부할 Runtime Data Area  중 Heap영역에 더 이상 사용하지 않고 자리만 차지하고 있는 객체들을 제거하는 역할을 합니다. 자동으로 실행되기 때문에 언제 정확히 언제 실행되는지 알기 어렵고 사용자가 임의로 GC를 발생시키는 것은 좋은 발상이 아니기에 JVM에 맡기는 것이 좋습니다. 기본적인 특징은 GC가 수행되는 동안 GC를 실행하는 쓰레드 외 모든 쓰레드가 일시정지 됩니다.</p>
+
+<h3 id="-class-loader">② Class Loader</h3>
+<p>개발의 결과물로 우리는  .java파일을 생성합니다. 이러한 .java파일은 컴파일러(javac)에 의해 .class파일 즉 JAVA Byte Code(바이트코드) 로 컴파일되고, 이렇게 컴파일된 바이트코드들을 Class Loader가 운영체제에 의해 메모리를 할당 받은 Runtime Data Area으로 적재하는 역할을 합니다.</p>
+
+<h3 id="-execution-engine">③ Execution Engine</h3>
+<p>Class Loader에 의해 Runtime Data Area에 적제된 .class파일들을 하나의 명령단위로 읽어서 컴퓨터가 이해할 수 있는 기계어로 번역하고 명령을 실행합니다.  Interperter방식과  JIT(Just-In-Time) 방식이 존재하고 추후 포스트에 자세히 다루어 보겠습니다.</p>
+
+<h3 id="-runtime-data-area">④ Runtime Data Area</h3>
+<p>JVM메모리 영역으로 OS로부터 별도로 메모리 공간을 할당받고 JAVA 어플리케이션을 실행할 때 사용됩니다. Method Area, Heap Area, Stack Area, PC register, Native Method Stack 총 5가지로 구분됩니다.</p>
+
+<p><img src="https://honbabzone.com/assets/images/post/jvm/jvm-structure.png" alt="jvm의 구조" class="align-center open-new" /></p>
+
+<h2 id="step-2-runtime-data-area">Step 2: Runtime Data Area</h2>
+<h3 id="-method-areastatic-area">① Method Area(Static Area)</h3>
+<p><strong>Method Area(Static Area)</strong> 는 java 어플리케이션이 실행되면 클래스 별로 클래스에서 필요한 패키지 클래스, 런타임 상수풀, 인터페이스, 상수, static변수, final 변수, 클래스 멤버 변수 등 필드데이터, 생성자를 포함한 모든 메서드 정보 등 한번 로드 된 후 <strong>메모리에 항상 상주하고 있는 영역</strong>입니다. 그래서 <strong>모든 스레드가 공유가능</strong> 합니다. 예를 들어 Math.abs(-10) 같이 Math 클래스의 메서드를 초기화 없이 바로 사용할 수 있는것은 해당 영역에 덕분입니다.</p>
+
+<h3 id="-heap-area">② Heap Area</h3>
+<p><strong>Heap Area</strong>은 메서드 안에서 사용되는 <strong>객체</strong>들을 위한 영역으로 <strong>new를 통해 생성된 객체, 배열, immutal 객체</strong> 등의 값이 저장됩니다. 해당 영역에서 생성된 객체들은 다음에 나올 JVM Stack Area의 변수나 다른 객체의 필드에서 참조 가능합니다. 때문에 해당 객체를 참조하지 않으면 더는 쓸모가 없어 Garbage Collector에 의해 객체가 Heap 영역에서 제거됩니다.</p>
+
+<h3 id="-stack-area">③ Stack Area</h3>
+<p><strong>Stack Area</strong>은 스레드마다 하나씩 존재하며 쓰레드가 시작될 때 할당됩니다. 내부에는 매소드에서 직접 사용할 <strong>지역 변수, 파라미터, 리턴 값, 참조 변수일 경우 주소 값</strong> 들이 저장됩니다. 만약 프로그램에서 매소드가 호출되면 매소드와 매소드 정보는 차곡차곡 Stack에 쌓이면서(PUSH) 내부 과정을 실행합니다. 매소드 호출이 종료되면 해당 매소드는 Stack Area에서 제거(POP) 됩니다. 
+<img src="https://honbabzone.com/assets/images/post/jvm/jvm-stack.png" alt="jvm stack 영역" class="align-center open-new" /></p>
+
+<h3 id="-pc-register">④ PC register</h3>
+<p><strong>PC register</strong>은 Thread가 생성될 때마다 생성되는 영역으로 Program counter 즉 현재 쓰레드가 실행되는 부분의 주소와 해당 명령을 저장하고 있는 영역입니다. 이것을 이용해 다수의 쓰레드들이 명령의 흐름을 잃지 않고 함수가 순차적으로 실행됩니다.</p>
+
+<h3 id="-native-method-stack">⑤ Native Method Stack</h3>
+<p><strong>Native Method Stack</strong>은 자바 외 다른 언어로 작성된 네이티브 코드를 수행하기 위한 메모리 영역입니다. <strong>JAVA 이외의 다른 언어</strong>에서 제공되는 Method의 정보가 저장됩니다.</p>
+
+<p>이제는 Runtime Data Area영역 중  Heap Area영역이 어떻게 구성되어 있는지 살펴보겠습니다.</p>
+
+<h2 id="step-3-heap-area">Step 3: Heap Area</h2>
+<p><img src="https://honbabzone.com/assets/images/post/jvm/jvm-heap-area.png" alt="jvm Heap 영역" class="align-center open-new" />
+힙 영역은 <strong>Eden, Survivor1, Survivor2, Old 영역, Permanent영역( 생성된 객체들의 주소값이 저장되는 영역 )</strong>으로 나누어집니다. 힙을 이렇게 나눈 이유는 효율적인 GC를 위해서입니다. GC는 크게 <strong>Minor GC와 Major GC</strong>로 구분되는데 이를 살펴보겠습니다. 우선 new를 통해 객체가 생성되면 Eden영역에 생성됩니다. new를 통해 다양한 객체가 생성 중 만약 Eden 영역이 가득 차게 된다면 첫 GC가 일어납니다. Eden에서 참조되지 않은 객체를 제거하고 참조가 유지되는 객체를 S1 영역으로 이동시킵니다. 다시 new를 통한 객체가 생성중 또 Eden 영역이 가득 차게 되면 이번에는 S1 영역이 아닌 S2 영역으로 참조를 유지하고 있는 객체들을 이동시킵니다. 이와 더불어 S1 영역에 있는 객체 중 참조가 유지되고 있는 객체 또한 S2로 이동시키고 age를 +1 합니다. 이를 <strong>Minor GC</strong>라고 부릅니다. 이렇게 Eden -&gt; S1 -&gt; S2-&gt;S1…이 반복적으로 일어나게 되면서 오랫동안 살아남는 객체는 age가 지속해서 증가하게 되는데 어느 정도 age가 증가하여 오랫동안 살아남으면 이제는 Old 영역으로 객체를 옮기게 됩니다. <strong>Major GC</strong>는 Old 영역에 있는 모든 객체를 검사하고 참조되고 있는지 확인 후 참조되지 않은 객체들을 모아 한번에 제거하는 것을 말합니다. 이를 Full GC라고도 하며 Full GC는 GC를 제외한 모든 쓰레드가 중지되어야 합니다.</p>
+
+<h2 id="step-4-예제로-알아보기">Step 4: 예제로 알아보기</h2>
+<p>지금까지 JVM의 메모리 구조에 대해 알아봤습니다. 그렇다면 좀 더 명확히 이해하기 위해 예제를 통해 Class 코드들이 어디에 위치하고 어떻게 동작하는지 알아보겠습니다.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// TEST 클래스</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="c1">//클래스 필드</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="no">ONE</span>       <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="no">TWO</span>    <span class="o">=</span> <span class="s">"TWO"</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="no">FOUR</span><span class="o">;</span>
+    
+    <span class="c1">// 상수</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">FIVE</span>    <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+
+    <span class="c1">// 정적 블럭</span>
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="no">FOUR</span> <span class="o">=</span> <span class="s">"안녕하세요"</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="c1">//인스턴스 필드</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">three</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nf">Test</span><span class="o">(</span> <span class="kt">int</span> <span class="n">three</span> <span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">three</span> <span class="o">=</span> <span class="n">three</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 클래스 메서드</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sum</span><span class="o">(</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">,</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="c1">//인스턴스 메서드</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">multiply</span><span class="o">(</span> <span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getThree</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">three</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// main thread</span>
+ <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[]){</span>
+        <span class="kt">int</span> <span class="n">one</span>       <span class="o">=</span> <span class="nc">Test</span><span class="o">.</span><span class="na">ONE</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">two</span>    <span class="o">=</span> <span class="nc">Test</span><span class="o">.</span><span class="na">TWO</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">one_sum_two</span> <span class="o">=</span> <span class="nc">Test</span><span class="o">.</span><span class="na">sum</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+        
+        <span class="nc">Test</span> <span class="n">test</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Test</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">three</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="na">getThree</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">two_multiply_three</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="na">multiply</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"one : "</span> <span class="o">+</span><span class="n">one</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"two : "</span> <span class="o">+</span><span class="n">two</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"one_sum_two : "</span> <span class="o">+</span><span class="n">one_sum_two</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"three : "</span> <span class="o">+</span><span class="n">three</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"two_multiply_three : "</span> <span class="o">+</span><span class="n">two_multiply_three</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"FOUR : "</span> <span class="o">+</span><span class="nc">Test</span><span class="o">.</span><span class="na">FOUR</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"FIVE : "</span> <span class="o">+</span><span class="nc">Test</span><span class="o">.</span><span class="na">FIVE</span><span class="o">);</span>
+ <span class="o">}</span>
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-wl" data-lang="wl"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="o">//</span><span class="w"> </span><span class="err">출력</span><span class="w"> 
+</span><span class="nv">one</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="nv">two</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nv">TWO</span><span class="w">
+</span><span class="nv">one</span><span class="o">_</span><span class="nv">sum</span><span class="o">_</span><span class="nv">two</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="nv">three</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="nv">two</span><span class="o">_</span><span class="nv">multiply</span><span class="o">_</span><span class="nv">three</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="m">6</span><span class="w">
+</span><span class="nv">FOUR</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="err">안녕하세요</span><span class="w">
+</span><span class="nv">FIVE</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="m">10</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="class-loader에-의한-testclass파일의-로드-과정">Class Loader에 의한 Test.class파일의 로드 과정</h3>
+
+<p><img src="https://honbabzone.com/assets/images/post/java/jvm-architecture.png" alt="jvm structure 영역" class="align-center open-new" /><br />
+<strong>① Main 메서드 안에서 int one       = Test.ONE;을 만났다!</strong><br /><br />
+첫째로 컴파일 시점이 아닌 <strong>runtime 시점</strong>에서 모든 과정은 시작됩니다. 직접 만든 java 어플리케이션을 실행하는 도중(main 메서드 실행 중) 위 Test.class파일을 사용하는 부분을 처음 만나는 순간 Class Loader에 의해 Test.class 파일이 Loading, Linking, Initialization 과정을 겪습니다.</p>
+
+<h4 id="loading">Loading</h4>
+<p>BootStrap ClassLoader, Extension ClassLoader,  Application ClassLoader 3개의 클래스 로더를 통해 Test.class파일이 JVM안으로 로드됩니다. Class Loading을 요청받았을 때 <strong>BootStrap ClassLoader &gt;  Extension ClassLoader &gt; Application ClassLoader 순서로 우선권</strong>을 가지며 BootStrap ClassLoader에 없다면 Extension ClassLoader을 찾고 Extension ClassLoader에 없다면 최종적으로 Application ClassLoader에서 찾는다고 생각하시면 됩니다. Test.class파일은 Application ClassLoader가 찾아 Loading합니다.</p>
+
+<ul>
+  <li>
+    <p><strong>BootStrap :</strong>  가장 최상위 ClassLoader로 java.lang.Object같은 핵심 시스템 Class를 로딩합니다.  $JAVA_HOME/jre/lib 위치에 있는 JAR 파일이 그 대상입니다. 위를 변경하기 위해서는 -Xbootclasspath옵션을 통해 변경 가능합니다.</p>
+  </li>
+  <li>
+    <p><strong>Extension ClassLoader :</strong> $JAVA_HOME/jre/lib/ext에 위치한 JAR 파일을 로딩합니다. 사용자의 classpath를 수정하지 않고 다양한 보안 확장프로그램 같은 새로운 확장 프로그램을 로드할 수 있습니다.</p>
+  </li>
+  <li>
+    <p><strong>Application ClassLoader :</strong> $CLASSPATH에 위치한 JAR 파일을 로딩합니다. 직접 만든 어플리케이션의 JAR파일의 classpath라고 보시면 됩니다.</p>
+  </li>
+</ul>
+
+<h4 id="linking">Linking</h4>
+<ul>
+  <li><strong>Verify :</strong> 로드된 Test.class파일들의 에러를 확인합니다.</li>
+  <li><strong>Prepare :</strong> Test.class파일들을 훝으면서  static키워드가 붙은 멤버들에 대해 메모리만 할당하고 기본값으로 세팅합니다. (아직 정확하게 값을 넣기 전입니다.) 즉 public static int ONE  = 0;으로 세팅합니다.</li>
+  <li><strong>Resolve  :</strong> Test.class파일들을 훝으면서 지금은 없지만 symbolic reference( Test.TWO와 같이 객체 이름으로 참조하는 것)들을 Method Area에서 실제 주소값을 찾고 그 주소값으로 참조객체들을 세팅합니다.</li>
+</ul>
+
+<h4 id="initialization">Initialization</h4>
+<p>최종 단계로 모든 정적 변수는 원래 값으로 할당되고 정적 블록이 실행됩니다. public static int ONE = 1값으로  할당하고,  static 블록 내부 FOUR=”안녕하세요” 를 실행합니다. 이때 Method Area로 Test.class에 있는 모든 정보들이 Method Area안 독립적인 Test.class 영역으로 배치됩니다.</p>
+
+<p><img src="https://honbabzone.com/assets/images/post/java/Method Area.png" alt="Method Area structure 영역" class="align-center open-new" /><br /></p>
+
+<h4 id="field-information">Field Information</h4>
+<p>Class 멤버변수의 이름 및 데이터 타입, 접근 제어자에 대한 정보를 저장</p>
+
+<h4 id="method-information">Method Information</h4>
+<p>Class 멤버메서드의 이름, 리턴타입, 매개변수,  접근제어자에 대한 정보</p>
+
+<h4 id="type-infomation">Type Infomation</h4>
+<p>Type의 속성이 Class인지 Interface인지여부 , 패키지명, Supper Class에 대한 정보</p>
+
+<h4 id="constant-pool">Constant Pool</h4>
+<p>class에서 사용된 상수가 저장되는 영역, Symbolic reference 객체도 여기에 저장된다.</p>
+
+<h4 id="static-variable">Static Variable</h4>
+<p>static 변수들에 대한 정보들이 저장된다.</p>
+
+<p><strong>② Main 메서드 안에서 Test test = new Test(3);을 만났다!</strong><br /><br />
+Method Area에서 객체정보를 읽어 Heap메모리 안에 독립적으로 생성합니다.</p>
+
+<p><img src="https://honbabzone.com/assets/images/post/java/Heap.png" alt="Heap Area structure 영역" class="align-center open-new" /><br /></p>
+
+<p class="notice--info"><strong>Info:</strong> 지금까지 이전에 공부했던 내용을 정리해보면서 내용을 다듬었습니다. 잘못된 부분은 댓글 남겨주시면 수정하겠습니다. 감사합니다.</p>
+
+<p class="notice--info"><strong>참고자료</strong> <br />
+– <a href="https://dzone.com/articles/jvm-architecture-explained" target="_blank">https://dzone.com/articles/jvm-architecture-explained</a> <br /></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#java" class="page__taxonomy-item" rel="tag">JAVA</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-01-29">January 29, 2020</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=JVM%28+Java+Virtual+Machine+%29%EC%9D%B4%EB%9E%80%20https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-jvm%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-jvm%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-jvm%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/jekyll/start-gitHubBlog/" class="pagination--pager" title="GitHub 블로그 시작하기
+">이전</a>
+    
+    
+      <a href="/java/java-static/" class="pagination--pager" title="Java에서 자주 보이는 Static이란 무엇일까?
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/test1/" rel="permalink">테스트글1
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+          <br/>
+        <i class="far fa-clock" aria-hidden="true"></i>
+
+
+
+
+  3 분 소요
+
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">테스트글 1을 작성해본다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/javascript/javascript-ecmascript6/" rel="permalink">Javascript ECMAScript6( ES6 - 이크마6 )
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+         
+            <strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-11-30">November 30, 2020</time>
+          <br/>
+        <i class="far fa-clock" aria-hidden="true"></i>
+
+
+
+
+  12 분 소요
+
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">최근 Node.js를 공부하면서 Front-End 개발에 높은 가능성과 흥미를 느끼게 되어 front-end 개발자가 되기 위한 첫 관문인 ES6 문법에
+대해 한번 정리하는 게시물을 작성하고자 합니다. 주안점은 javascript 문법을 공부하는 포스트는 아니고 개인적으로 몰랐던 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/java/java-algorithm-2/" rel="permalink">JAVA 알고리즘 2 (Algorithm)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+         
+            <strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-11-21">November 21, 2020</time>
+          <br/>
+        <i class="far fa-clock" aria-hidden="true"></i>
+
+
+
+
+  2 분 소요
+
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">분할 정복 ( Divide &amp; Conquer )
+분할 정복 알고리즘은 유명한 알고리즘 패턴으로 각개 격파라는 표현을 사용할 수 있습니다. 
+주어진 문제를 둘 이상의 부분 문제로 나눈 뒤 각 문제에 대한 답을 재귀 호출로 이용해 계산하고, 
+각 부분의 답으로부터 전체의 해답을...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/java/java-algorithm-1/" rel="permalink">JAVA 알고리즘 1 (Algorithm)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+         
+            <strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-09-12">September 12, 2020</time>
+          <br/>
+        <i class="far fa-clock" aria-hidden="true"></i>
+
+
+
+
+  3 분 소요
+
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Step 1 : 알고리즘(Algorithm)란 무엇인가?
+알고리즘은 어떠한 입력이 있다면 이 입력에 따라 명령을 명확하게 실행하고, 효과적으로 입력에 따른 결과물을 도출할 수 있다면 알고리즘으로 볼 수 있습니다. 
+즉 특정 원하는 결과를 도출하기 위해 처리하는 의사결정 과정의 코드...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="mailto:7271kim@naver.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://www.facebook.com/seokjin.kim.16" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+        
+      
+        
+          <li><a href="https://github.com/7271kim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 김석진. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; I referred to the  <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://honbabzone.com/java/java-jvm/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/java/java-jvm"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://7271kim.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

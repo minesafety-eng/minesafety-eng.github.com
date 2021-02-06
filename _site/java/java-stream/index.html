@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>JAVA 스트림(Stream) | 기록하는 개발자</title>
+<meta name="description" content="JAVA에서 말하는 Stream이 무엇인지 가볍게 살펴보겠습니다.">
+
+
+  <meta name="author" content="김석진">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="기록하는 개발자">
+
+  
+  <meta property="og:image" content="/assets/images/profile/programmer.png">
+
+<meta property="og:title" content="JAVA 스트림(Stream)">
+<meta property="og:url" content="https://honbabzone.com/java/java-stream/">
+
+
+  <meta property="og:description" content="JAVA에서 말하는 Stream이 무엇인지 가볍게 살펴보겠습니다.">
+
+
+
+  <meta name="keywords" content="JAVA, Stream, 중각처리, 최종처리">
+
+
+
+  <meta property="article:tag" content="Stream">
+
+
+
+
+  <meta property="article:section" content="스트림">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2020-07-05T00:00:00+09:00">
+
+
+
+  <meta property="article:modified_time" content="2020-07-05T15:00:00+09:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://honbabzone.com/java/java-stream/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "김석진",
+      "url": "https://honbabzone.com/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="기록하는 개발자 Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- 커스텀 영역 -->
+<link rel="shortcut icon" type="image/x-icon" href="/assets/images/profile/favicon.ico" />
+<!-- 구글 나눔고딕 웹폰트 적용 -->
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&display=swap&subset=korean" rel="stylesheet">
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!-- IE 9 경고-->
+<div class="notice--danger align-center hide" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          기록하는 개발자 Blog
+          <span class="site-subtitle">Version 1.0</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/posts/" >연도별 포스트</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="https://honbabzone.com/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#java" itemprop="item"><span itemprop="name">Java</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">JAVA 스트림(Stream)</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/profile/programmer.png" alt="김석진" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">김석진</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>꾸준히 공부하는 개발자입니다. <br /> 블로그 포스트 글에서 잘못된 부분이나 수정했으면 하는 부분, 적극적으로 댓글 남겨주신다면 감사하겠습니다.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="http://honbabzone.com/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i> Website</a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://www.facebook.com/seokjin.kim.16" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+          
+        
+          
+            <li><a href="https://github.com/7271kim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:7271kim@naver.com">
+            <meta itemprop="email" content="7271kim@naver.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="JAVA 스트림(Stream)">
+    <meta itemprop="description" content="Step 1 : 스트림(Stream)과 병렬처리Stream의 장점은 흔히들 가독성을 꼽습니다. 여러 줄의 코드가 한 줄로 줄어드는 마법같은 일을 할 수 있게 Java 8 Stream API에서 제공해 주고 있습니다.  다만 Stream을 실무에서 사용하기 위해서는 충분한 공부와 학습이 필요합니다. 특히 개인 뿐만이 아니라 팀원 들도 충분히 Stream을 알아야 하기에.. 아쉽게도 아직은 Stream으로 제대로 된 작업을 진행해 본적이 없습니다.  안쓰면 잘 잊어버리기에 깊이 있는 포스트는 못 되더라도 책보고 기본적인 코드만 정리하겠습니다.(단순 남의 코드를 해석하기 위한) Stream을 사용하기 위해서는 꼭 다른 주의사항 같은 포스트를 읽어보고 Stream의 단점 및 주의사항을 확인하는 것이 좋습니다.">
+    <meta itemprop="datePublished" content="2020-07-05T00:00:00+09:00">
+    <meta itemprop="dateModified" content="2020-07-05T15:00:00+09:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">JAVA 스트림(Stream)
+</h1>
+          
+            <p class="page__meta">
+                
+                    <strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-07-05">July 05, 2020</time>
+                 <br/>
+                <i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  2 분 소요
+
+
+            </p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 목차</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#step-1--스트림stream과-병렬처리">Step 1 : 스트림(Stream)과 병렬처리</a></li>
+  <li><a href="#step-2--스트림-사용하기">Step 2 : 스트림 사용하기</a>
+    <ul>
+      <li><a href="#컬렉션에서-얻기">컬렉션에서 얻기</a></li>
+      <li><a href="#배열에서-얻기">배열에서 얻기</a></li>
+      <li><a href="#숫자-범위로부터-스트림-얻기">숫자 범위로부터 스트림 얻기</a></li>
+      <li><a href="#디렉토리에서-스트림-얻기">디렉토리에서 스트림 얻기</a></li>
+      <li><a href="#파일로부터-스트림-얻기">파일로부터 스트림 얻기</a></li>
+    </ul>
+  </li>
+  <li><a href="#step-3--스트림-중간처리">Step 3 : 스트림 중간처리</a></li>
+  <li><a href="#step-4--스트림-최종처리">Step 4 : 스트림 최종처리</a></li>
+</ul>
+            </nav>
+          </aside>
+        
+        <h1 id="step-1--스트림stream과-병렬처리">Step 1 : 스트림(Stream)과 병렬처리</h1>
+<p>Stream의 장점은 흔히들 가독성을 꼽습니다. 여러 줄의 코드가 한 줄로 줄어드는 마법같은 일을 할 수 있게 Java 8 Stream API에서 제공해 주고 있습니다. 
+ 다만 Stream을 실무에서 사용하기 위해서는 충분한 공부와 학습이 필요합니다. 특히 개인 뿐만이 아니라 팀원 들도 충분히 Stream을 알아야 하기에.. 아쉽게도 아직은 Stream으로 제대로 된 작업을 진행해 본적이 없습니다. 
+ 안쓰면 잘 잊어버리기에 깊이 있는 포스트는 못 되더라도 책보고 기본적인 코드만 정리하겠습니다.(단순 남의 코드를 해석하기 위한) Stream을 사용하기 위해서는 꼭 다른 주의사항 같은 포스트를 읽어보고 Stream의 단점 및 주의사항을 확인하는 것이 좋습니다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 기존 코드 </span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Student</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Student</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[]){</span>
+        
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Student</span><span class="o">&gt;</span> <span class="n">students</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span> 
+                <span class="k">new</span> <span class="nf">Student</span><span class="o">(</span><span class="s">"김석진"</span><span class="o">,</span> <span class="mi">10</span><span class="o">),</span>
+                <span class="k">new</span> <span class="nf">Student</span><span class="o">(</span><span class="s">"이석진"</span><span class="o">,</span> <span class="mi">11</span><span class="o">),</span>
+                <span class="k">new</span> <span class="nf">Student</span><span class="o">(</span><span class="s">"박석진"</span><span class="o">,</span> <span class="mi">13</span><span class="o">)</span>
+            <span class="o">);</span>
+    
+    <span class="k">for</span> <span class="o">(</span><span class="nc">Student</span> <span class="n">student</span> <span class="o">:</span> <span class="n">students</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">student</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">student</span><span class="o">.</span><span class="na">getAge</span><span class="o">()+</span><span class="s">"살."</span><span class="o">);</span>
+    
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-wl" data-lang="wl"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="code"><pre><span class="err">김석진</span><span class="w"> </span><span class="m">10</span><span class="err">살</span><span class="o">.</span><span class="w">
+</span><span class="err">이석진</span><span class="w"> </span><span class="m">11</span><span class="err">살</span><span class="o">.</span><span class="w">
+</span><span class="err">박석진</span><span class="w"> </span><span class="m">13</span><span class="err">살</span><span class="o">.</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 스트림 사용 </span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[]){</span>
+        
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Student</span><span class="o">&gt;</span> <span class="n">students</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span> 
+                <span class="k">new</span> <span class="nf">Student</span><span class="o">(</span><span class="s">"김석진"</span><span class="o">,</span> <span class="mi">10</span><span class="o">),</span>
+                <span class="k">new</span> <span class="nf">Student</span><span class="o">(</span><span class="s">"이석진"</span><span class="o">,</span> <span class="mi">11</span><span class="o">),</span>
+                <span class="k">new</span> <span class="nf">Student</span><span class="o">(</span><span class="s">"박석진"</span><span class="o">,</span> <span class="mi">13</span><span class="o">)</span>
+            <span class="o">);</span>
+    
+    <span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">Student</span><span class="o">&gt;</span> <span class="n">studentStream</span> <span class="o">=</span> <span class="n">students</span><span class="o">.</span><span class="na">stream</span><span class="o">();</span>
+    <span class="n">studentStream</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span> <span class="n">student</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">student</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">student</span><span class="o">.</span><span class="na">getAge</span><span class="o">()+</span><span class="s">"살."</span><span class="o">)</span> <span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h1 id="step-2--스트림-사용하기">Step 2 : 스트림 사용하기</h1>
+<p>스트림을 사용하기 위해서는 스트림 객체를 얻어야 합니다. 아래는 다양하게 스트림을 얻는 방법을 기술하였습니다.</p>
+
+<h2 id="컬렉션에서-얻기">컬렉션에서 얻기</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">texts</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"1"</span><span class="o">,</span><span class="s">"2"</span><span class="o">);</span>
+<span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">texts</span><span class="o">.</span><span class="na">stream</span><span class="o">();</span>
+<span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">parallelStream</span> <span class="o">=</span> <span class="n">texts</span><span class="o">.</span><span class="na">parallelStream</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h2 id="배열에서-얻기">배열에서 얻기</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span><span class="o">[]</span> <span class="n">texts</span> <span class="o">=</span> <span class="o">{</span><span class="s">"1"</span><span class="o">,</span><span class="s">"2"</span><span class="o">};</span>
+<span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">texts</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h2 id="숫자-범위로부터-스트림-얻기">숫자 범위로부터 스트림 얻기</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">IntStream</span> <span class="n">intStream</span> <span class="o">=</span> <span class="nc">IntStream</span><span class="o">.</span><span class="na">rangeClosed</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+<span class="nc">LongStream</span> <span class="n">longStream</span> <span class="o">=</span> <span class="nc">LongStream</span><span class="o">.</span><span class="na">rangeClosed</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>
+
+</code></pre></div></div>
+
+<h2 id="디렉토리에서-스트림-얻기">디렉토리에서 스트림 얻기</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">Path</span><span class="o">&gt;</span> <span class="n">directory</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">list</span><span class="o">(</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"D:/over_the_dream/NaverCloud/3.Programming"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h2 id="파일로부터-스트림-얻기">파일로부터 스트림 얻기</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">file</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">lines</span><span class="o">(</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"D:/over_the_dream/NaverCloud/3.Programming/1.개발 요청 사항들.txt"</span><span class="o">),</span><span class="nc">Charset</span><span class="o">.</span><span class="na">defaultCharset</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h1 id="step-3--스트림-중간처리">Step 3 : 스트림 중간처리</h1>
+<p>스트림을 얻었다면 for문을 돌면서 중간 처리과정을 통해 데이터를 정제할 수 있습니다. 관련 메서드입니다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">distinct</span><span class="o">()</span> <span class="o">:</span> <span class="n">중복</span> <span class="n">제거</span>
+<span class="n">filter</span><span class="o">(...)</span> <span class="o">:</span> <span class="n">조건</span> <span class="n">필터링</span> <span class="o">,</span> <span class="n">true를</span> <span class="n">만족하는</span> <span class="n">요소만</span> <span class="n">필터링한다</span><span class="o">.</span>
+<span class="n">flatMapXXX</span><span class="o">()</span> <span class="o">:</span> <span class="n">스트림의</span> <span class="n">요소를</span> <span class="n">복수개의</span> <span class="n">구성요소로</span> <span class="n">대체하고</span> <span class="n">합쳐</span> <span class="n">새로운</span> <span class="n">스트림을</span> <span class="n">생성한다</span><span class="o">.</span>
+<span class="n">mapXXX</span><span class="o">()</span> <span class="o">:</span>  <span class="n">스트림의</span> <span class="n">요소를</span> <span class="n">새로운</span> <span class="n">구성요소로</span> <span class="n">대체하고</span> <span class="n">합쳐</span> <span class="n">새로운</span> <span class="n">스트림을</span> <span class="n">생성한다</span><span class="o">.</span>
+<span class="n">asXXXStream</span><span class="o">()</span> <span class="o">:</span> <span class="n">형변환</span><span class="o">.</span> 
+<span class="n">boxed</span><span class="o">()</span> <span class="o">:</span> <span class="n">기본</span> <span class="n">타입을</span> <span class="n">방싱타입으로</span> <span class="n">형변환</span>
+<span class="n">sorted</span><span class="o">(...)</span> <span class="o">:</span> <span class="n">요소를</span> <span class="n">정렬하여</span> <span class="n">필터링</span>
+<span class="n">peak</span><span class="o">(...)</span> <span class="o">:</span> <span class="n">요소</span> <span class="n">전체를</span> <span class="n">반복</span>
+
+</code></pre></div></div>
+
+<h1 id="step-4--스트림-최종처리">Step 4 : 스트림 최종처리</h1>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xxxMatch</span><span class="o">(...)</span> <span class="o">:</span> <span class="n">스트림</span> <span class="n">요소</span> <span class="n">중</span> <span class="n">해당</span> <span class="n">조건에</span> <span class="n">만족하는</span> <span class="n">요소</span> <span class="n">여부를</span> <span class="n">boolean으로</span> <span class="n">반환합니다</span><span class="o">.</span>
+<span class="n">count</span><span class="o">()</span> <span class="o">:</span> <span class="n">요소의</span> <span class="n">개수를</span> <span class="n">리턴</span>
+<span class="n">findFirst</span><span class="o">()</span> <span class="o">:</span> <span class="n">첫번째</span> <span class="n">요소를</span> <span class="n">리턴</span> <span class="n">리턴</span> <span class="n">타입은</span> <span class="nc">OptionalXXX</span>
+<span class="nf">max</span><span class="o">(</span> <span class="o">...</span> <span class="o">)</span> <span class="o">:</span> <span class="n">최대</span> <span class="n">요소를</span> <span class="n">리턴합니다</span><span class="o">.</span> <span class="n">리턴타입은</span> <span class="nc">OptionalXXX</span>
+<span class="nf">min</span><span class="o">(...)</span> <span class="o">:</span> <span class="n">최소</span> <span class="n">요소를</span> <span class="n">리턴합니다</span><span class="o">.</span> <span class="n">리턴타입은</span> <span class="nc">OptionalXXX</span>
+<span class="nf">average</span><span class="o">()</span> <span class="o">:</span> <span class="n">요소의</span> <span class="n">평균을</span> <span class="n">리턴합니다</span><span class="o">.</span> <span class="n">리턴타입은</span> <span class="nc">OptionalDouble</span>
+<span class="nf">sum</span><span class="o">()</span> <span class="o">:</span> <span class="n">요소의</span> <span class="n">총</span> <span class="n">합을</span> <span class="n">리턴합니다</span><span class="o">.</span> <span class="n">리턴타입은</span> <span class="kt">int</span><span class="o">,</span> <span class="kt">long</span><span class="o">,</span> <span class="kt">double</span>
+<span class="nf">collect</span><span class="o">(...)</span> <span class="o">:</span> <span class="n">최종</span> <span class="n">요소들을</span> <span class="nc">Collection</span> <span class="n">객체로</span> <span class="n">담습니다</span><span class="o">.</span>
+
+</code></pre></div></div>
+
+<p class="notice--info"><strong>참고자료</strong> <br /> <br />
+– 이것이 자바다 (한빛 미디어)<br /></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#java" class="page__taxonomy-item" rel="tag">JAVA</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-07-05">July 05, 2020</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=JAVA+%EC%8A%A4%ED%8A%B8%EB%A6%BC%28Stream%29%20https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-stream%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-stream%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fhonbabzone.com%2Fjava%2Fjava-stream%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/java/java-collection/" class="pagination--pager" title="JAVA 컬렉션(Collection)
+">이전</a>
+    
+    
+      <a href="/java/java-dataStructure-1/" class="pagination--pager" title="JAVA 자료구조 1(Data Structure)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/test1/" rel="permalink">테스트글1
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+          <br/>
+        <i class="far fa-clock" aria-hidden="true"></i>
+
+
+
+
+  3 분 소요
+
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">테스트글 1을 작성해본다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/javascript/javascript-ecmascript6/" rel="permalink">Javascript ECMAScript6( ES6 - 이크마6 )
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+         
+            <strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-11-30">November 30, 2020</time>
+          <br/>
+        <i class="far fa-clock" aria-hidden="true"></i>
+
+
+
+
+  12 분 소요
+
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">최근 Node.js를 공부하면서 Front-End 개발에 높은 가능성과 흥미를 느끼게 되어 front-end 개발자가 되기 위한 첫 관문인 ES6 문법에
+대해 한번 정리하는 게시물을 작성하고자 합니다. 주안점은 javascript 문법을 공부하는 포스트는 아니고 개인적으로 몰랐던 ...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/java/java-algorithm-2/" rel="permalink">JAVA 알고리즘 2 (Algorithm)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+         
+            <strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-11-21">November 21, 2020</time>
+          <br/>
+        <i class="far fa-clock" aria-hidden="true"></i>
+
+
+
+
+  2 분 소요
+
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">분할 정복 ( Divide &amp; Conquer )
+분할 정복 알고리즘은 유명한 알고리즘 패턴으로 각개 격파라는 표현을 사용할 수 있습니다. 
+주어진 문제를 둘 이상의 부분 문제로 나눈 뒤 각 문제에 대한 답을 재귀 호출로 이용해 계산하고, 
+각 부분의 답으로부터 전체의 해답을...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/java/java-algorithm-1/" rel="permalink">JAVA 알고리즘 1 (Algorithm)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta">
+         
+            <strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2020-09-12">September 12, 2020</time>
+          <br/>
+        <i class="far fa-clock" aria-hidden="true"></i>
+
+
+
+
+  3 분 소요
+
+
+      </p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Step 1 : 알고리즘(Algorithm)란 무엇인가?
+알고리즘은 어떠한 입력이 있다면 이 입력에 따라 명령을 명확하게 실행하고, 효과적으로 입력에 따른 결과물을 도출할 수 있다면 알고리즘으로 볼 수 있습니다. 
+즉 특정 원하는 결과를 도출하기 위해 처리하는 의사결정 과정의 코드...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="검색어를 입력하세요..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="mailto:7271kim@naver.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://www.facebook.com/seokjin.kim.16" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook</a></li>
+        
+      
+        
+          <li><a href="https://github.com/7271kim" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 김석진. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; I referred to the  <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://honbabzone.com/java/java-stream/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/java/java-stream"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://7271kim.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
