@@ -3,6 +3,7 @@ title: test1
 layout: single
 author_profile: true
 read_time: true
+use_math: true
 comments: true
 share: true
 related: true
@@ -27,6 +28,10 @@ popular: true
 **마크다운이 익숙하지 않아서**
 
 __연습을 자주 해서 익숙해지고 싶네요.__
+
+$$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
+$$
 
 
 **참고자료** <br> <br>

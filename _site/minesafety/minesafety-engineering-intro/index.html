@@ -3,6 +3,32 @@
   <head>
     <meta charset="utf-8">
 
+
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+<script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
 <!-- begin _includes/seo.html --><title>test1 | 광산보안기사/기능사 길라잡이</title>
 <meta name="description" content="광산보안기사 및 광산보안기능사에 대하여 알아봅니다.">
 
@@ -392,6 +418,8 @@
 <p><strong>마크다운이 익숙하지 않아서</strong></p>
 
 <p><strong>연습을 자주 해서 익숙해지고 싶네요.</strong></p>
+
+\[x = {-b \pm \sqrt{b^2-4ac} \over 2a}\]
 
 <p class="notice--info"><strong>참고자료</strong> <br /> <br />
 – 광산보안기사 정해<br /></p>
