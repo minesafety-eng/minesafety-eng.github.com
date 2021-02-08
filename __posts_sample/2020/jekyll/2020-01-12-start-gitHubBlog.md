@@ -364,7 +364,7 @@ cmd창에서 해당 명령어 실행합니다.
 해당 A 레코드를  도메인을 구매한 사이트에 세팅해줍니다. 필자는 가비아를 사용하여 해당과 같이 수정진행 하였습니다. 
 ![가비아 Setting 확인]({{ site.url }}{{ site.baseurl }}/assets/images/post/jekyll/gabia.png){: .align-center .open-new}
 
-## Step 8: MakerWidget 및 Disqus 세팅
+## Step 8: minesafety-engWidget 및 Disqus 세팅
 필자 블로그 우측 하단에 떠있는 위젯과 댓글을 위한 Disqus세팅방법을 공유하겠습니다. 
 
 ### MakerWidget 세팅
