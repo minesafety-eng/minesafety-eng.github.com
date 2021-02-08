@@ -1,0 +1,29 @@
+I"<h1 id="안녕하세요">안녕하세요?</h1>
+
+<h2 id="테스트-글입니다">테스트 글입니다.</h2>
+
+<p><strong>마크다운이 익숙하지 않아서</strong></p>
+
+<p><strong>연습을 자주 해서 익숙해지고 싶네요.</strong></p>
+
+<p>아래처럼 입력하면</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$
+x = {-b <span class="se">\p</span>m <span class="se">\s</span>qrt{b^2-4ac} <span class="se">\o</span>ver 2a}
+$
+</code></pre></div></div>
+<p>이렇게 결과가 나오는데?
+$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
+$</p>
+
+<p>이렇게 입력하면</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$$
+x = {-b <span class="se">\p</span>m <span class="se">\s</span>qrt{b^2-4ac} <span class="se">\o</span>ver 2a}
+$$
+</code></pre></div></div>
+<p>깨지네요.
+\(x = {-b \pm \sqrt{b^2-4ac} \over 2a}\)</p>
+
+<p class="notice--info"><strong>참고자료</strong> <br /> <br />
+– 광산보안기사 정해<br /></p>
+:ET
