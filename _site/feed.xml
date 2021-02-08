@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://minesafety-eng.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://minesafety-eng.github.io//" rel="alternate" type="text/html" /><updated>2021-02-08T15:16:47+09:00</updated><id>https://minesafety-eng.github.io//feed.xml</id><title type="html">광산보안기사/기능사 길라잡이</title><subtitle>광산보안기사/기능사 문제를 통한 광산안전의 기본이론을 공유하는 블로그</subtitle><author><name>광산보안</name><email>smj0226@kores.or.kr</email></author><entry><title type="html">test1</title><link href="https://minesafety-eng.github.io//minesafety/minesafety-engineering-intro/" rel="alternate" type="text/html" title="test1" /><published>2021-02-06T00:00:00+09:00</published><updated>2021-02-06T23:42:00+09:00</updated><id>https://minesafety-eng.github.io//minesafety/minesafety-engineering-intro</id><content type="html" xml:base="https://minesafety-eng.github.io//minesafety/minesafety-engineering-intro/">&lt;h1 id=&quot;안녕하세요&quot;&gt;안녕하세요?&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="https://minesafety-eng.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://minesafety-eng.github.io//" rel="alternate" type="text/html" /><updated>2021-02-08T15:23:02+09:00</updated><id>https://minesafety-eng.github.io//feed.xml</id><title type="html">광산보안기사/기능사 길라잡이</title><subtitle>광산보안기사/기능사 문제를 통한 광산안전의 기본이론을 공유하는 블로그</subtitle><author><name>광산보안</name><email>smj0226@kores.or.kr</email></author><entry><title type="html">test1</title><link href="https://minesafety-eng.github.io//minesafety/minesafety-engineering-intro/" rel="alternate" type="text/html" title="test1" /><published>2021-02-06T00:00:00+09:00</published><updated>2021-02-06T23:42:00+09:00</updated><id>https://minesafety-eng.github.io//minesafety/minesafety-engineering-intro</id><content type="html" xml:base="https://minesafety-eng.github.io//minesafety/minesafety-engineering-intro/">&lt;h1 id=&quot;안녕하세요&quot;&gt;안녕하세요?&lt;/h1&gt;
 
 &lt;h2 id=&quot;테스트-글입니다&quot;&gt;테스트 글입니다.&lt;/h2&gt;
 
@@ -6,7 +6,23 @@
 
 &lt;p&gt;&lt;strong&gt;연습을 자주 해서 익숙해지고 싶네요.&lt;/strong&gt;&lt;/p&gt;
 
-\[x = {-b \pm \sqrt{b^2-4ac} \over 2a}\]
+&lt;p&gt;아래처럼 입력하면&lt;/p&gt;
+&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$
+x = {-b &lt;span class=&quot;se&quot;&gt;\p&lt;/span&gt;m &lt;span class=&quot;se&quot;&gt;\s&lt;/span&gt;qrt{b^2-4ac} &lt;span class=&quot;se&quot;&gt;\o&lt;/span&gt;ver 2a}
+$
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;이렇게 결과가 나오는데?
+$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
+$&lt;/p&gt;
+
+&lt;p&gt;이렇게 입력하면&lt;/p&gt;
+&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$$
+x = {-b &lt;span class=&quot;se&quot;&gt;\p&lt;/span&gt;m &lt;span class=&quot;se&quot;&gt;\s&lt;/span&gt;qrt{b^2-4ac} &lt;span class=&quot;se&quot;&gt;\o&lt;/span&gt;ver 2a}
+$$
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;깨지네요.
+\(x = {-b \pm \sqrt{b^2-4ac} \over 2a}\)&lt;/p&gt;
 
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;참고자료&lt;/strong&gt; &lt;br /&gt; &lt;br /&gt;
 – 광산보안기사 정해&lt;br /&gt;&lt;/p&gt;</content><author><name>광산보안</name><email>smj0226@kores.or.kr</email></author><category term="minesafety" /><category term="광산보안기사 광산보안기능사 문제풀이" /><summary type="html">안녕하세요?</summary></entry></feed>

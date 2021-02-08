@@ -29,9 +29,26 @@ popular: true
 
 __연습을 자주 해서 익숙해지고 싶네요.__
 
+아래처럼 입력하면
+```markdown
+$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
+$
+```
+이렇게 결과가 나오는데?
+$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
+$
+
+이렇게 입력하면
+```markdown
 $$
 x = {-b \pm \sqrt{b^2-4ac} \over 2a}
-
+$$
+```
+깨지네요.
+$$
+x = {-b \pm \sqrt{b^2-4ac} \over 2a}
 $$
 
 
