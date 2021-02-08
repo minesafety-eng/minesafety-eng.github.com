@@ -1,13 +1,13 @@
 # 기본 설명 https://mmistakes.github.io/minimal-mistakes/docs/configuration/
 
-minimal_mistakes_skin    : "default" # 태마 색 설정 "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise" 
+minimal_mistakes_skin    : "default" # 태마 색 설정 "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "ko-KR"
 title                    : "광산보안기사/기능사 길라잡이" # Meta 태그에 들어가는 영역 , masthead_title등이 없으면 기본값으로 나온다.
 title_separator          : "&#124;" # 타이틀 사이 구분자 <title>Welcome to Jekyll | Minimal Mistakes</title> 해당 형식으로 들어갑니다.
 subtitle                 : "Version 1.0" # 타이틀 아래에 나올 작은 글씨 
-name                     : "신명진" # 맨 하단 이름 찍히는 영역
+name                     : "광산보안" # 맨 하단 이름 찍히는 영역
 description              : "광산보안기사/기능사 문제를 통한 광산안전의 기본이론을 공유하는 블로그" # Meta 태그에 들어가는 영역
 url                      : "https://minesafety-eng.github.io/" # GitBlog 호스트 주소
 baseurl                  : # subPath https://minesafety-eng.github.io/blog라고 하고 싶을 시 "/blog" 라고 적는다.
@@ -100,8 +100,8 @@ analytics:
 
 # Site Author
 author:
-  name             : "신명진"
-  avatar           : "/assets/images/profile/programmer.png" # 프로필 이미지
+  name             : "광산보안"
+  avatar           : "/assets/images/profile/minesafety.png" # 프로필 이미지
   bio              : "광산의 안전에 대하여 공부하는 사람입니다. <br> 지금은 기본적인 문제풀이 위주로 포스팅을 올리지만, 다뤘으면 하는 주제에 관하여 댓글 남겨주신다면 향후 적극 반영하겠습니다."
   location         : "Republic of Korea"
   email            : "smj0226@kores.or.kr"
